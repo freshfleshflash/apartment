@@ -1,49 +1,47 @@
-/**
- * Created by kwondaye on 2015. 12. 27..
- */
-var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-var audioElement = document.getElementById('audioElement');
-var audioSrc = audioCtx.createMediaElementSource(audioElement);
-var analyser = audioCtx.createAnalyser();
+var audioContext = new (window.AudioContext || window.webkitAudioContext)();
+var audioElement = document.getElementById('audio');
+var audioSource = audioContext.createMediaElementSource(audioElement);
+var analyser = audioContext.createAnalyser();
 
-// Bind our analyser to the media element source.
-audioSrc.connect(analyser);
-audioSrc.connect(audioCtx.destination);
+audioSource.connect(analyser);
+audioSource.connect(audioContext.destination);
 
 var frequencyData = new Uint8Array(50);    // max: 1024
 
-var svgHeight = '600';
-var svgWidth = '1200';
-var barPadding = '1';
+var room = $('#room2_3');
+var vSvgW = room.attr('width');
+var vSvgH = room.attr('height') + 200;
+var barPadding = 1;
 
-function createSvg(parent, height, width) {
-    return d3.select(parent).append('svg').attr('height', height).attr('width', width);
+function createSvg(width, height) {
+    return d3.select('svg')
+        .append('svg')
+        .attr('width', width)
+        .attr('height', height)
+        .attr('x', room.attr('x'))
+        .attr('y', room.attr('y'));
 }
 
-var svg = createSvg('body', svgHeight, svgWidth);
+var vSvg = createSvg(vSvgW, vSvgH);
 
-// Create our initial D3 chart.
-svg.selectAll('rect')
+vSvg.selectAll('rect')
     .data(frequencyData)
     .enter()
     .append('rect')
     .attr('x', function (d, i) {
-        return i * (svgWidth / frequencyData.length);
+        return i * (vSvgW / frequencyData.length);
     })
-    .attr('width', svgWidth / frequencyData.length - barPadding);
+    .attr('width', vSvgW / frequencyData.length - barPadding);
 
-// Continuously loop and update chart with frequency data.
 function renderChart() {
     requestAnimationFrame(renderChart);
 
-    // Copy frequency data to frequencyData array.
     analyser.getByteFrequencyData(frequencyData);
 
-    // Update d3 chart with new data.
-    svg.selectAll('rect')
+    vSvg.selectAll('rect')
         .data(frequencyData)
         .attr('y', function(d) {
-            return svgHeight - d;
+            return vSvgH - d;
         })
         .attr('height', function(d) {
             return d;
@@ -53,5 +51,4 @@ function renderChart() {
         });
 }
 
-// Run the loop
 renderChart();

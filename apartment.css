@@ -4,11 +4,16 @@ body {
     height: 100%;
     padding: 0;
     margin: 0;
-    /*overflow: hidden;*/
+    overflow: scroll;
 }
 
-svg {
+#buildingSVG {
     width: 100%;
     height: 100%;
     background-color: #C8C8C8;
+    z-index: -999;
+}
+
+svg {
+    position: absolute;
 }

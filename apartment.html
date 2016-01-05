@@ -11,15 +11,17 @@
     <script src="lib/d3.min.js"></script>
 </head>
 <body>
-    <!--<audio id="audio" src="data/hbhg.mp3"></audio>-->
-    <!--<div>-->
-        <!--<button onclick="document.getElementById('audio').play()">Play the Audio</button>-->
-        <!--<button onclick="document.getElementById('audio').pause()">Pause the Audio</button>-->
-        <!--<button onclick="document.getElementById('audio').volume+=0.1">Increase Volume</button>-->
-        <!--<button onclick="document.getElementById('audio').volume-=0.1">Decrease Volume</button>-->
-    <!--</div>-->
-    <svg id="svg"></svg>
-    <script src="drawing.js"></script>
-    <!--<script src="sound.js"></script>-->
+    <audio id="audio" src="data/hbhg.mp3"></audio>
+    <svg id="buildingSVG">
+        <div>
+            <button onclick="document.getElementById('audio').play()">Play the Audio</button>
+            <button onclick="document.getElementById('audio').pause()">Pause the Audio</button>
+            <button onclick="document.getElementById('audio').volume+=0.1">Increase Volume</button>
+            <button onclick="document.getElementById('audio').volume-=0.1">Decrease Volume</button>
+        </div>
+    </svg>
+    <div id="testDiv"></div>
+    <script src="building.js"></script>
+    <script src="sound.js"></script>
 </body>
 </html>
