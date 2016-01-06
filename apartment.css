@@ -11,7 +11,7 @@ svg {
     position: absolute;
 }
 
-#buildingSvg {
+#totalSvg {
     width: 100%;
     height: 100%;
     background-color: #C8C8C8;
@@ -22,22 +22,49 @@ svg {
     z-index: 9999;
 }
 
-button {
-    position: absolute;
-    z-index: 999;
-}
-
 * {
     transform-origin: 0% 0%;
+    -webkit-transform-origin: 0% 0%;
+
+    animation-duration: 1s;
+    animation-timing-function: linear;
+    animation-delay: 1s;
+    animation-iteration-count: infinite;
+    /*animation-direction: alternate;*/
+    animation-fill-mode: none;
+    animation-play-state: paused;
 }
 
 
+#room3_3 .human{
+    animation-name: walk;
+    animation-duration: 5s;
+}
 
-/*.body {*/
-    /*transform-origin: 50% 100%;*/
-/*}*/
+#room3_3 .human .leftLeg {
+    animation-name: rotateLeftLeg;
+    animation-duration: 0.5s;
+}
 
-@keyframes rotation {
-    from {transform: rotate(180deg);}
-    to {transform: rotate(120deg);}
+#room3_3 .human .rightLeg{
+    animation-name: rotateRightLeg;
+    animation-duration: 0.5s;
+}
+
+@keyframes walk {
+    /*0% {transform: translate(0px);}*/
+    25% {transform: translate(70px);}
+    50% {transform: translate(0px);}
+    75% {transform: translate(-70px);}
+    100% {transform: translate(0px);}
+}
+
+@keyframes rotateLeftLeg {
+    from {transform: rotate(-30deg);}
+    to {transform: rotate(30deg);}
+}
+
+@keyframes rotateRightLeg {
+    from {transform: rotate(30deg);}
+    to {transform: rotate(-10deg);}
 }

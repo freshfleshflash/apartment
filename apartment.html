@@ -9,18 +9,12 @@
     <script src="lib/jquery-1.11.3.min.js"></script>
     <script src="lib/jquery.svg.min.js"></script>
     <script src="lib/jquery.svganim.min.js"></script>
+    <script src="lib/jquery.svgdom.min.js"></script>
     <script src="lib/d3.min.js"></script>
 </head>
 <body>
     <audio id="sound" src="data/music.m4a"></audio>
-    <svg id="buildingSvg">
-        <div>
-            <button onclick="document.getElementById('sound').play()">Play the Audio</button>
-            <!--<button onclick="document.getElementById('audio').pause()">Pause the Audio</button>-->
-            <!--<button onclick="document.getElementById('audio').volume+=0.1">Increase Volume</button>-->
-            <!--<button onclick="document.getElementById('audio').volume-=0.1">Decrease Volume</button>-->
-        </div>
-    </svg>
+    <svg id="totalSvg"></svg>
     <script src="apartment.js"></script>
 </body>
 </html>
