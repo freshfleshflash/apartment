@@ -10,8 +10,6 @@ var rooms = [];
 
 var numBar = 22;
 var barGap = roomW / numBar;
-var livingRoomX = barGap * 8;
-var livingRoomW = roomW - livingRoomX;
 
 var audioOn = false;
 
@@ -29,6 +27,10 @@ function init(svg) {
     drawBuilding(svg);
     renderRooms(svg);
     renderOthers(svg);
+
+    var myrect = svg.rect(25, 25, 150, '25%', 10, 10, {fill: 'none', stroke: 'blue', strokeWidth: 3, transform: 'rotate(0, 100, 75)'});
+
+    $(myrect).animate({svgWidth: 200, svgHeight: '30%', svgStroke: 'aqua', svgTransform: 'rotate(60, 0, 0)'}, 2000);
 }
 
 function renderRooms(svg) {
@@ -295,26 +297,20 @@ function connectAudio(x, y, w, h) {
                 return 'rgb(0, ' + d + ', 0)';
             });
 
-        var bass = (frequencyData[2]) / 1;
+        var bass = (frequencyData[1]) / 1;
 
         if(audioOn) {
-            var leftUpperArmX = $('#room3_3 .human .leftUpperArm').attr('x1');
-            var leftUpperArmY = $('#room3_3 .human .leftUpperArm').attr('y1');
-            var leftLowerArmX = $('#room3_3 .human .leftLowerArm').attr('x1');
-            var leftLowerArmY = $('#room3_3 .human .leftLowerArm').attr('y1');
+            $('#room3_3 .human .leftArm').attr('transform', "rotate(" + (90 + math_map(bass, 0, 255, 0, -60)) + ", " + getPivotPos('#room3_3', 'leftUpperArm', 'x1') + ", " + getPivotPos('#room3_3', 'leftUpperArm', 'y1') + ")");
+            $('#room3_3 .human .leftLowerArm').attr('transform', "rotate(" + (0+ math_map(bass, 0, 255, 0, -160)) + ", " + getPivotPos('#room3_3', 'leftLowerArm', 'x1') + ", " + getPivotPos('#room3_3', 'leftLowerArm', 'y1') + ")");
 
-            var rightUpperArmX = $('#room3_3 .human .rightUpperArm').attr('x1');
-            var rightUpperArmY = $('#room3_3 .human .rightUpperArm').attr('y1');
-            var rightLowerArmX = $('#room3_3 .human .rightLowerArm').attr('x1');
-            var rightLowerArmY = $('#room3_3 .human .rightLowerArm').attr('y1');
-
-            $('#room3_3 .human .leftArm').attr('transform', "rotate(" + (90 + math_map(bass, 0, 255, 0, -60)) + ", " + leftUpperArmX + ", " + leftUpperArmY + ")");
-            $('#room3_3 .human .leftLowerArm').attr('transform', "rotate(" + (0+ math_map(bass, 0, 255, 0, -160)) + ", " + leftLowerArmX + ", " + leftLowerArmY + ")");
-
-            $('#room3_3 .human .rightArm').attr('transform', "rotate(" + (90 + math_map(bass, 0, 255, 0, 60)) + ", " + rightUpperArmX + ", " + rightUpperArmY + ")");
-            $('#room3_3 .human .rightLowerArm').attr('transform', "rotate(" + (0+ math_map(bass, 0, 255, 0, 160)) + ", " + rightLowerArmX + ", " + rightLowerArmY + ")");
+            $('#room3_3 .human .rightArm').attr('transform', "rotate(" + (90 + math_map(bass, 0, 255, 0, 60)) + ", " + getPivotPos('#room3_3', 'rightUpperArm', 'x1') + ", " + getPivotPos('#room3_3', 'rightUpperArm', 'y1') + ")");
+            $('#room3_3 .human .rightLowerArm').attr('transform', "rotate(" + (0+ math_map(bass, 0, 255, 0, 160)) + ", " + getPivotPos('#room3_3', 'rightLowerArm', 'x1') + ", " + getPivotPos('#room3_3', 'rightLowerArm', 'y1') + ")");
         }
     }
+}
+
+function getPivotPos(room, bodyParts, point) {
+    return $(room + ' .human .' + bodyParts).attr(point);
 }
 
 function render3_4(svg) {
@@ -395,7 +391,7 @@ function drawRoom(svg, room) {
 function Human(x, y) {
     this.x = x;
     this.y = y;
-    this.faceR = 5;
+    this.faceR = 7;
     this.bodyW = this.faceR * 2;
     this.bodyH = this.bodyW * 2;
     this.armLeng = this.bodyH * 0.9;
@@ -403,29 +399,37 @@ function Human(x, y) {
 }
 
 function drawHuman(svg, gRoom, human) {
+    var x = human.x;
+    var y = human.y;
+    var faceR = human.faceR;
+    var bodyW = human.bodyW;
+    var bodyH = human.bodyH;
+    var armLeng = human.armLeng;
+    var legLeng = human.legLeng;
+
     var gHuman = svg.group(gRoom, {class: 'human', stroke: 'red', strokeWidth: 1});
 
     var gBody = svg.group(gHuman, {class: 'body'});
-    svg.rect(gBody, human.x - human.faceR, human.y + human.faceR, human.bodyW, human.bodyH);
-    svg.circle(gBody, human.x, human.y, human.faceR, human.faceR);
+    svg.rect(gBody, x - faceR, y + faceR, bodyW, bodyH);
+    svg.circle(gBody, x, y, faceR, faceR);
 
     var gLeftArm = svg.group(gBody, {class: 'leftArm'});
     var gLeftUpperArm = svg.group(gLeftArm);
     var gLeftLowerArm = svg.group(gLeftUpperArm);
-    svg.line(gLeftUpperArm, human.x - human.faceR, human.y + human.faceR, human.x - human.faceR, human.y + human.faceR + human.armLeng/2, {class: 'leftUpperArm'});
-    svg.line(gLeftLowerArm, human.x - human.faceR, human.y + human.faceR + human.armLeng/2, human.x - human.faceR, human.y + human.faceR + human.armLeng, {class: 'leftLowerArm'});
+    svg.line(gLeftUpperArm, x - faceR, y + faceR, x - faceR, y + faceR + armLeng/2, {class: 'leftUpperArm'});
+    svg.line(gLeftLowerArm, x - faceR, y + faceR + armLeng/2, x - faceR, y + faceR + armLeng, {class: 'leftLowerArm'});
 
     var gRightArm = svg.group(gBody, {class: 'rightArm'});
     var gRightUpperArm = svg.group(gRightArm);
     var gRightLowerArm = svg.group(gRightUpperArm);
-    svg.line(gRightUpperArm, human.x + human.faceR, human.y + human.faceR, human.x + human.faceR, human.y + human.faceR + human.armLeng/2, {class: 'rightUpperArm'});
-    svg.line(gRightLowerArm, human.x + human.faceR, human.y + human.faceR + human.armLeng/2, human.x + human.faceR, human.y + human.faceR + human.armLeng, {class: 'rightLowerArm'});
+    svg.line(gRightUpperArm, x + faceR, y + faceR, x + faceR, y + faceR + armLeng/2, {class: 'rightUpperArm'});
+    svg.line(gRightLowerArm, x + faceR, y + faceR + armLeng/2, x + faceR, y + faceR + armLeng, {class: 'rightLowerArm'});
 
     var gLeftLeg = svg.group(gHuman);
-    svg.line(gLeftLeg, human.x - human.faceR, human.y + human.faceR + human.bodyH, human.x - human.faceR, human.y + human.faceR + human.bodyH + human.legLeng, {class: 'leftLeg'});
+    svg.line(gLeftLeg, x - faceR, y + faceR + bodyH, x - faceR, y + faceR + bodyH + legLeng, {class: 'leftLeg'});
 
     var gRightLeg = svg.group(gHuman, {class: 'rightLeg'});
-    svg.line(gRightLeg, human.x + human.faceR, human.y + human.faceR + human.bodyH, human.x + human.faceR, human.y + human.faceR + human.bodyH + human.legLeng);
+    svg.line(gRightLeg, x + faceR, y + faceR + bodyH, x + faceR, y + faceR + bodyH + legLeng);
 }
 
 function renderCat(svg) {
