@@ -29,9 +29,6 @@ function init(svg) {
     drawBuilding(svg);
     renderRooms(svg);
     renderOthers(svg);
-
-    //svg.rect(0, 0, 500, 300, {id: 'testRect', fill: 'none', stroke: 'violet'});
-    //$('#testRect').attr('transform', 'rotate(30 250 150)');
 }
 
 function renderRooms(svg) {
@@ -47,7 +44,10 @@ function renderRooms(svg) {
     render3_2(svg);
     render3_3(svg);
     render3_4(svg);
-    //  ...
+    render4_1(svg);
+    render4_2(svg);
+    render4_3(svg);
+    render4_4(svg);
 }
 
 function renderOthers(svg) {
@@ -78,7 +78,7 @@ function render1_2(svg) {
     var y = room.y;
 
     drawRoom(svg, room);
-    drawHuman(svg, room.gRoom, new Human(x + 100, y + 80));
+    //drawHuman(svg, room.gRoom, new Human(x + 100, y + 80));
 }
 
 function render1_3(svg) {
@@ -87,7 +87,7 @@ function render1_3(svg) {
     var y = room.y;
 
     drawRoom(svg, room);
-    drawHuman(svg, room.gRoom, new Human(x + 100, y + 80));
+    //drawHuman(svg, room.gRoom, new Human(x + 100, y + 80));
 }
 
 function render1_4(svg) {
@@ -96,7 +96,7 @@ function render1_4(svg) {
     var y = room.y;
 
     drawRoom(svg, room);
-    drawHuman(svg, room.gRoom, new Human(x + 100, y + 80));
+    //drawHuman(svg, room.gRoom, new Human(x + 100, y + 80));
 }
 
 function render2_1(svg) {
@@ -105,7 +105,7 @@ function render2_1(svg) {
     var y = room.y;
 
     drawRoom(svg, room);
-    drawHuman(svg, room.gRoom, new Human(x + 100, y + 80));
+    //drawHuman(svg, room.gRoom, new Human(x + 100, y + 80));
 }
 
 function render2_2(svg) {
@@ -114,7 +114,7 @@ function render2_2(svg) {
     var y = room.y;
 
     drawRoom(svg, room);
-    drawHuman(svg, room.gRoom, new Human(x + 100, y + 80));
+    //drawHuman(svg, room.gRoom, new Human(x + 100, y + 80));
 }
 
 function render2_3(svg) {
@@ -123,7 +123,7 @@ function render2_3(svg) {
     var y = room.y;
 
     drawRoom(svg, room);
-    drawHuman(svg, room.gRoom, new Human(x + 100, y + 80));
+    //drawHuman(svg, room.gRoom, new Human(x + 100, y + 80));
 }
 
 function render2_4(svg) {
@@ -132,7 +132,7 @@ function render2_4(svg) {
     var y = room.y;
 
     drawRoom(svg, room);
-    drawHuman(svg, room.gRoom, new Human(x + 100, y + 80));
+    //drawHuman(svg, room.gRoom, new Human(x + 100, y + 80));
 }
 
 function render3_1(svg) {
@@ -141,7 +141,7 @@ function render3_1(svg) {
     var y = room.y;
 
     drawRoom(svg, room);
-    drawHuman(svg, room.gRoom, new Human(x + 100, y + 80));
+    //drawHuman(svg, room.gRoom, new Human(x + 100, y + 80));
 }
 
 function render3_2(svg) {
@@ -162,160 +162,157 @@ function render3_3(svg) {
     drawRoom(svg, room);
     drawHuman(svg, room.gRoom, new Human(x + roomW/2, y + 80));
 
-    animateHuman();
-
-    function animateHuman() {
-        $('#room3_3 .human').css('animation-play-state', 'running');
-        $('#room3_3 .human .leftLeg').css('animation-play-state', 'running');
-        $('#room3_3 .human .rightLeg').css('animation-play-state', 'running');
-    }
-
     drawAudio(svg, room.gRoom, new Audio(x + 120, y + 15));
+}
 
-    function Audio(x, y) {
-        this.x = x;
-        this.y = y;
-        this.w = 90;
-        this.h = 40;
+function Audio(x, y) {
+    this.x = x;
+    this.y = y;
+    this.w = 90;
+    this.h = 40;
+}
+
+function drawAudio(svg, gRoom, audio) {
+    var x = audio.x;
+    var y = audio.y;
+    var w = audio.w;
+    var h = audio.h;
+
+    var gAudio = svg.group(gRoom, {class: 'audio', stroke: 'black', fill: 'white'});
+    svg.rect(gAudio, x, y, w, h);
+
+    var gSpeaker = svg.group(gAudio, {class: 'speaker'});
+    var speakerW = w * 0.2;
+    var speakerH = h;
+    svg.rect(gSpeaker, x, y, speakerW, speakerH);
+    svg.rect(gSpeaker, x + w - speakerW, y, speakerW, speakerH);
+    var outerSpeakerR = speakerW * 0.4;
+    var innerSpeakerR = outerSpeakerR * 0.6;
+    svg.circle(gSpeaker, x + speakerW / 2, y + speakerH / 4, outerSpeakerR);
+    svg.circle(gSpeaker, x + speakerW / 2, y + speakerH / 4, innerSpeakerR);
+    svg.circle(gSpeaker, x + speakerW / 2, y + speakerH - speakerH / 4, outerSpeakerR);
+    svg.circle(gSpeaker, x + speakerW / 2, y + speakerH - speakerH / 4, innerSpeakerR);
+    svg.circle(gSpeaker, x + w - speakerW / 2, y + speakerH / 4, outerSpeakerR);
+    svg.circle(gSpeaker, x + w - speakerW / 2, y + speakerH / 4, innerSpeakerR);
+    svg.circle(gSpeaker, x + w - speakerW / 2, y + speakerH - speakerH / 4, outerSpeakerR);
+    svg.circle(gSpeaker, x + w - speakerW / 2, y + speakerH - speakerH / 4, innerSpeakerR);
+
+    var gVis = svg.group(gAudio, {class: 'vis'});
+    var visWindowW = (w - speakerW * 2) * 0.85;
+    var visWindowH = h * 0.6;
+    var visGapH = h * 0.08;
+    var visWindowX = x + w / 2 - visWindowW / 2;
+    var visWindowY = y + visGapH;
+    svg.rect(gVis, visWindowX, visWindowY, visWindowW, visWindowH);
+
+    var gButton = svg.group(gAudio, {class: 'button'});
+    var buttonH = h * 0.15;
+    var buttonW = buttonH;
+    var buttonGapW = (visWindowW - buttonW*4) / 5;
+    var buttonGapH = (h - (visWindowH + visGapH)) / 2;
+    var buttonX = x + speakerW + (w - speakerW*2 - visWindowW)/2;
+    var buttonY = y + visGapH + visWindowH + buttonGapH - buttonH/2;
+
+    extraSvg.append('rect').attr('id', 'playButton').attr('x', buttonX + buttonGapW + 0*(buttonW + buttonGapW)).attr('y', buttonY).attr('width', buttonW).attr('height', buttonH).attr('stroke', 'black').attr('fill', 'white');
+    extraSvg.append('rect').attr('id', 'stopButton').attr('x', buttonX + buttonGapW + 1*(buttonW + buttonGapW)).attr('y', buttonY).attr('width', buttonW).attr('height', buttonH).attr('stroke', 'black').attr('fill', 'white');
+    extraSvg.append('rect').attr('id', 'increaseButton').attr('x', buttonX + buttonGapW + 2*(buttonW + buttonGapW)).attr('y', buttonY).attr('width', buttonW).attr('height', buttonH).attr('stroke', 'black').attr('fill', 'white');
+    extraSvg.append('rect').attr('id', 'decreaseButton').attr('x', buttonX + buttonGapW + 3*(buttonW + buttonGapW)).attr('y', buttonY).attr('width', buttonW).attr('height', buttonH).attr('stroke', 'black').attr('fill', 'white');
+    //extraSvg.append('polygon').attr('points', '200,10 250,190 200,210');
+
+    connectAudio(visWindowX, visWindowY, visWindowW, visWindowH);
+}
+
+function connectAudio(x, y, w, h) {
+    $('#playButton').click(function() {
+        $('#sound')[0].play();
+        audioOn = true;
+    });
+
+    $('#stopButton').click(function() {
+        $('#sound')[0].pause();
+        audioOn = false;
+    });
+
+    $('#increaseButton').click(function() {
+        $('#sound')[0].volume += 0.1;
+    });
+
+    $('#decreaseButton').click(function() {
+        $('#sound')[0].volume -= 0.1;
+    });
+
+    var audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    var audioElement = document.getElementById('sound');
+    var audioSource = audioContext.createMediaElementSource(audioElement);
+    var analyser = audioContext.createAnalyser();
+
+    audioSource.connect(analyser);
+    audioSource.connect(audioContext.destination);
+
+    var frequencyData = new Uint8Array(10);    // max: 1024
+
+    var vW = w;
+    var vH = h;
+    var barPadding = 0;
+    var vSvg = createSvg();
+
+    renderVis();
+
+    function createSvg() {
+        return d3.select('#room3_3 .audio .vis')
+            .append('svg')
+            .attr('x', x)
+            .attr('y', y)
+            .attr('width', w)
+            .attr('height', h)
+            .attr('id', 'audioSvg');
     }
 
-    function drawAudio(svg, gRoom, audio) {
-        var x = audio.x;
-        var y = audio.y;
-        var w = audio.w;
-        var h = audio.h;
+    vSvg.selectAll('rect')
+        .data(frequencyData)
+        .enter()
+        .append('rect')
+        .attr('x', function (d, i) {
+            return i * (vW / frequencyData.length);
+        })
+        .attr('width', vW / frequencyData.length - barPadding)
+        .attr('class', 'vBar');
 
-        var gAudio = svg.group(gRoom, {class: 'audio', stroke: 'black', fill: 'white'});
-        svg.rect(gAudio, x, y, w, h);
+    function renderVis() {
+        requestAnimationFrame(renderVis);
 
-        var gSpeaker = svg.group(gAudio, {class: 'speaker'});
-        var speakerW = w * 0.2;
-        var speakerH = h;
-        svg.rect(gSpeaker, x, y, speakerW, speakerH);
-        svg.rect(gSpeaker, x + w - speakerW, y, speakerW, speakerH);
-        var outerSpeakerR = speakerW * 0.4;
-        var innerSpeakerR = outerSpeakerR * 0.6;
-        svg.circle(gSpeaker, x + speakerW / 2, y + speakerH / 4, outerSpeakerR);
-        svg.circle(gSpeaker, x + speakerW / 2, y + speakerH / 4, innerSpeakerR);
-        svg.circle(gSpeaker, x + speakerW / 2, y + speakerH - speakerH / 4, outerSpeakerR);
-        svg.circle(gSpeaker, x + speakerW / 2, y + speakerH - speakerH / 4, innerSpeakerR);
-        svg.circle(gSpeaker, x + w - speakerW / 2, y + speakerH / 4, outerSpeakerR);
-        svg.circle(gSpeaker, x + w - speakerW / 2, y + speakerH / 4, innerSpeakerR);
-        svg.circle(gSpeaker, x + w - speakerW / 2, y + speakerH - speakerH / 4, outerSpeakerR);
-        svg.circle(gSpeaker, x + w - speakerW / 2, y + speakerH - speakerH / 4, innerSpeakerR);
-
-        var gVis = svg.group(gAudio, {class: 'vis'});
-        var visWindowW = (w - speakerW * 2) * 0.85;
-        var visWindowH = h * 0.6;
-        var visGapH = h * 0.08;
-        var visWindowX = x + w / 2 - visWindowW / 2;
-        var visWindowY = y + visGapH;
-        svg.rect(gVis, visWindowX, visWindowY, visWindowW, visWindowH);
-
-        var gButton = svg.group(gAudio, {class: 'button'});
-        var buttonH = h * 0.15;
-        var buttonW = buttonH;
-        var buttonGapW = (visWindowW - buttonW*4) / 5;
-        var buttonGapH = (h - (visWindowH + visGapH)) / 2;
-        var buttonX = x + speakerW + (w - speakerW*2 - visWindowW)/2;
-        var buttonY = y + visGapH + visWindowH + buttonGapH - buttonH/2;
-
-        extraSvg.append('rect').attr('id', 'playButton').attr('x', buttonX + buttonGapW + 0*(buttonW + buttonGapW)).attr('y', buttonY).attr('width', buttonW).attr('height', buttonH).attr('stroke', 'black').attr('fill', 'white');
-        extraSvg.append('rect').attr('id', 'stopButton').attr('x', buttonX + buttonGapW + 1*(buttonW + buttonGapW)).attr('y', buttonY).attr('width', buttonW).attr('height', buttonH).attr('stroke', 'black').attr('fill', 'white');
-        extraSvg.append('rect').attr('id', 'increaseButton').attr('x', buttonX + buttonGapW + 2*(buttonW + buttonGapW)).attr('y', buttonY).attr('width', buttonW).attr('height', buttonH).attr('stroke', 'black').attr('fill', 'white');
-        extraSvg.append('rect').attr('id', 'decreaseButton').attr('x', buttonX + buttonGapW + 3*(buttonW + buttonGapW)).attr('y', buttonY).attr('width', buttonW).attr('height', buttonH).attr('stroke', 'black').attr('fill', 'white');
-        //extraSvg.append('polygon').attr('points', '200,10 250,190 200,210');
-
-        connectAudio(visWindowX, visWindowY, visWindowW, visWindowH);
-    }
-
-    function connectAudio(x, y, w, h) {
-        $('#playButton').click(function() {
-            $('#sound')[0].play();
-            audioOn = true;
-        });
-
-        $('#stopButton').click(function() {
-            $('#sound')[0].pause();
-            audioOn = false;
-        });
-
-        $('#increaseButton').click(function() {
-            $('#sound')[0].volume += 0.1;
-        });
-
-        $('#decreaseButton').click(function() {
-            $('#sound')[0].volume -= 0.1;
-        });
-
-        var audioContext = new (window.AudioContext || window.webkitAudioContext)();
-        var audioElement = document.getElementById('sound');
-        var audioSource = audioContext.createMediaElementSource(audioElement);
-        var analyser = audioContext.createAnalyser();
-
-        audioSource.connect(analyser);
-        audioSource.connect(audioContext.destination);
-
-        var frequencyData = new Uint8Array(10);    // max: 1024
-
-        var vW = w;
-        var vH = h;
-        var barPadding = 0;
-        var vSvg = createSvg();
-
-        renderVis();
-
-        function createSvg() {
-            return d3.select('#room3_3 .audio .vis')
-                .append('svg')
-                .attr('x', x)
-                .attr('y', y)
-                .attr('width', w)
-                .attr('height', h)
-                .attr('id', 'audioSvg');
-        }
+        analyser.getByteFrequencyData(frequencyData);
 
         vSvg.selectAll('rect')
             .data(frequencyData)
-            .enter()
-            .append('rect')
-            .attr('x', function (d, i) {
-                return i * (vW / frequencyData.length);
+            .attr('y', function (d) {
+                return h - d * 0.05;
             })
-            .attr('width', vW / frequencyData.length - barPadding)
-            .attr('class', 'vBar');
+            .attr('height', function (d) {
+                return d * 0.05;
+            })
+            .attr('fill', function (d) {
+                return 'rgb(0, ' + d + ', 0)';
+            });
 
-        function renderVis() {
-            requestAnimationFrame(renderVis);
+        var bass = (frequencyData[2]) / 1;
 
-            analyser.getByteFrequencyData(frequencyData);
+        if(audioOn) {
+            var leftUpperArmX = $('#room3_3 .human .leftUpperArm').attr('x1');
+            var leftUpperArmY = $('#room3_3 .human .leftUpperArm').attr('y1');
+            var leftLowerArmX = $('#room3_3 .human .leftLowerArm').attr('x1');
+            var leftLowerArmY = $('#room3_3 .human .leftLowerArm').attr('y1');
 
-            vSvg.selectAll('rect')
-                .data(frequencyData)
-                .attr('y', function (d) {
-                    return h - d * 0.05;
-                })
-                .attr('height', function (d) {
-                    return d * 0.05;
-                })
-                .attr('fill', function (d) {
-                    return 'rgb(0, 0, ' + d + ')';
-                });
+            var rightUpperArmX = $('#room3_3 .human .rightUpperArm').attr('x1');
+            var rightUpperArmY = $('#room3_3 .human .rightUpperArm').attr('y1');
+            var rightLowerArmX = $('#room3_3 .human .rightLowerArm').attr('x1');
+            var rightLowerArmY = $('#room3_3 .human .rightLowerArm').attr('y1');
 
-            var bass = (frequencyData[2]) / 1;
+            $('#room3_3 .human .leftArm').attr('transform', "rotate(" + (90 + math_map(bass, 0, 255, 0, -60)) + ", " + leftUpperArmX + ", " + leftUpperArmY + ")");
+            $('#room3_3 .human .leftLowerArm').attr('transform', "rotate(" + (0+ math_map(bass, 0, 255, 0, -160)) + ", " + leftLowerArmX + ", " + leftLowerArmY + ")");
 
-            if(audioOn) {
-                $('#room3_3 .human .leftUpperArm').attr('stroke', 'red');
-                $('#room3_3 .human .leftLowerArm').attr('stroke', 'orange');
-                //$('#room3_3 .human .leftUpperArm').attr('transform', "rotate(" + (90 + math_map(bass, 0, 255, 0, 60)) + ", " + 788 + ", " + 467 + ")");
-                $('#room3_3 .human .leftUpperArm').css('transform', "rotate(" + (190 + math_map(bass, 0, 255, 0, 60)) + "deg)");
-                $('#room3_3 .human .leftLowerArm').css('transform', 'rotate(' + (45 - math_map(bass, 0, 255, 0, 180)) + 'deg)');
-                $('#room3_3 .human .rightUpperArm').css('transform', "rotate(" + (190 + math_map(bass, 0, 255, 0, 60)) + "deg)");
-                $('#room3_3 .human .rightLowerArm').css('transform', 'rotate(' + (45 - math_map(bass, 0, 255, 0, 180)) + 'deg)');
-
-
-                $('#room3_4 .human .leftUpperArm').css('transform', "rotate(80deg)");
-            }
+            $('#room3_3 .human .rightArm').attr('transform', "rotate(" + (90 + math_map(bass, 0, 255, 0, 60)) + ", " + rightUpperArmX + ", " + rightUpperArmY + ")");
+            $('#room3_3 .human .rightLowerArm').attr('transform', "rotate(" + (0+ math_map(bass, 0, 255, 0, 160)) + ", " + rightLowerArmX + ", " + rightLowerArmY + ")");
         }
     }
 }
@@ -327,6 +324,44 @@ function render3_4(svg) {
 
     drawRoom(svg, room);
     drawHuman(svg, room.gRoom, new Human(x + 130, y + 80));
+
+    //$('#room3_4 .human').css('transform', "rotate(5deg)");
+}
+
+function render4_1(svg) {
+    var room = rooms[12];
+    var x = room.x;
+    var y = room.y;
+
+    drawRoom(svg, room);
+    //drawHuman(svg, room.gRoom, new Human(x + 100, y + 80));
+}
+
+function render4_2(svg) {
+    var room = rooms[13];
+    var x = room.x;
+    var y = room.y;
+
+    drawRoom(svg, room);
+    //drawHuman(svg, room.gRoom, new Human(x + 100, y + 80));
+}
+
+function render4_3(svg) {
+    var room = rooms[14];
+    var x = room.x;
+    var y = room.y;
+
+    drawRoom(svg, room);
+    //drawHuman(svg, room.gRoom, new Human(x + 100, y + 80));
+}
+
+function render4_4(svg) {
+    var room = rooms[15];
+    var x = room.x;
+    var y = room.y;
+
+    drawRoom(svg, room);
+    //drawHuman(svg, room.gRoom, new Human(x + 100, y + 80));
 }
 
 function Room(x, y, gRoom) {
@@ -368,41 +403,30 @@ function Human(x, y) {
 }
 
 function drawHuman(svg, gRoom, human) {
-    var gHuman = svg.group(gRoom, {class: 'human', stroke: 'black', strokeWidth: 1});
+    var gHuman = svg.group(gRoom, {class: 'human', stroke: 'red', strokeWidth: 1});
 
     var gBody = svg.group(gHuman, {class: 'body'});
     svg.rect(gBody, human.x - human.faceR, human.y + human.faceR, human.bodyW, human.bodyH);
     svg.circle(gBody, human.x, human.y, human.faceR, human.faceR);
 
-    var gArm = svg.group(gBody, {class: 'arm', stroke: 'black'});
+    var gLeftArm = svg.group(gBody, {class: 'leftArm'});
+    var gLeftUpperArm = svg.group(gLeftArm);
+    var gLeftLowerArm = svg.group(gLeftUpperArm);
+    svg.line(gLeftUpperArm, human.x - human.faceR, human.y + human.faceR, human.x - human.faceR, human.y + human.faceR + human.armLeng/2, {class: 'leftUpperArm'});
+    svg.line(gLeftLowerArm, human.x - human.faceR, human.y + human.faceR + human.armLeng/2, human.x - human.faceR, human.y + human.faceR + human.armLeng, {class: 'leftLowerArm'});
 
-    var gLeftArm = svg.group(gArm, {class: 'leftArm'});
-    var gLeftUpperArm = svg.group(gLeftArm, {class: 'leftUpperArm'});
-    var gLeftLowerArm = svg.group(gLeftUpperArm, {class: 'leftLowerArm'});
-    svg.line(gLeftUpperArm, human.x - human.faceR, human.y + human.faceR, human.x - human.faceR, human.y + human.faceR + human.armLeng/2);
-    svg.line(gLeftLowerArm, human.x - human.faceR, human.y + human.faceR + human.armLeng/2, human.x - human.faceR, human.y + human.faceR + human.armLeng);
+    var gRightArm = svg.group(gBody, {class: 'rightArm'});
+    var gRightUpperArm = svg.group(gRightArm);
+    var gRightLowerArm = svg.group(gRightUpperArm);
+    svg.line(gRightUpperArm, human.x + human.faceR, human.y + human.faceR, human.x + human.faceR, human.y + human.faceR + human.armLeng/2, {class: 'rightUpperArm'});
+    svg.line(gRightLowerArm, human.x + human.faceR, human.y + human.faceR + human.armLeng/2, human.x + human.faceR, human.y + human.faceR + human.armLeng, {class: 'rightLowerArm'});
 
-    var gRightArm = svg.group(gArm, {class: 'rightArm'});
-    var gRightUpperArm = svg.group(gRightArm, {class: 'rightUpperArm'});
-    var gRightLowerArm = svg.group(gRightUpperArm, {class: 'rightLowerArm'});
-    svg.line(gRightUpperArm, human.x + human.faceR, human.y + human.faceR, human.x + human.faceR, human.y + human.faceR + human.armLeng/2);
-    svg.line(gRightLowerArm, human.x + human.faceR, human.y + human.faceR + human.armLeng/2, human.x + human.faceR, human.y + human.faceR + human.armLeng);
-
-    var gLeftLeg = svg.group(gHuman, {class: 'leftLeg'});
-    svg.line(gLeftLeg, human.x - human.faceR, human.y + human.faceR + human.bodyH, human.x - human.faceR, human.y + human.faceR + human.bodyH + human.legLeng);
+    var gLeftLeg = svg.group(gHuman);
+    svg.line(gLeftLeg, human.x - human.faceR, human.y + human.faceR + human.bodyH, human.x - human.faceR, human.y + human.faceR + human.bodyH + human.legLeng, {class: 'leftLeg'});
 
     var gRightLeg = svg.group(gHuman, {class: 'rightLeg'});
     svg.line(gRightLeg, human.x + human.faceR, human.y + human.faceR + human.bodyH, human.x + human.faceR, human.y + human.faceR + human.bodyH + human.legLeng);
 }
-
-
-
-
-
-
-
-
-
 
 function renderCat(svg) {
     var gCat = svg.group({class: 'cat'});

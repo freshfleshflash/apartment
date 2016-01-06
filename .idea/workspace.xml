@@ -24,28 +24,28 @@
       <file leaf-file-name="apartment.html" pinned="false" current-in-tab="false">
         <entry file="file://$USER_HOME$/apartment/apartment.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-6.875">
-              <caret line="11" column="34" selection-start-line="11" selection-start-column="34" selection-end-line="11" selection-end-column="34" />
+            <state vertical-scroll-proportion="-9.375">
+              <caret line="15" column="38" selection-start-line="15" selection-start-column="32" selection-end-line="15" selection-end-column="38" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="apartment.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="apartment.js" pinned="false" current-in-tab="true">
         <entry file="file://$USER_HOME$/apartment/apartment.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="33" column="61" selection-start-line="33" selection-start-column="61" selection-end-line="33" selection-end-column="61" />
+            <state vertical-scroll-proportion="0.6346705">
+              <caret line="313" column="75" selection-start-line="313" selection-start-column="75" selection-end-line="313" selection-end-column="75" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="apartment.css" pinned="false" current-in-tab="true">
+      <file leaf-file-name="apartment.css" pinned="false" current-in-tab="false">
         <entry file="file://$USER_HOME$/apartment/apartment.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.871612">
-              <caret line="70" column="0" selection-start-line="70" selection-start-column="0" selection-end-line="70" selection-end-column="0" />
+            <state vertical-scroll-proportion="-11.708333">
+              <caret line="40" column="27" selection-start-line="39" selection-start-column="3" selection-end-line="40" selection-end-column="27" />
               <folding />
             </state>
           </provider>
@@ -80,9 +80,9 @@
         <option value="$USER_HOME$/apartment/audio.js" />
         <option value="$USER_HOME$/apartment/room3_3.js" />
         <option value="$USER_HOME$/apartment/building.js" />
+        <option value="$USER_HOME$/apartment/apartment.css" />
         <option value="$USER_HOME$/apartment/apartment.html" />
         <option value="$USER_HOME$/apartment/apartment.js" />
-        <option value="$USER_HOME$/apartment/apartment.css" />
       </list>
     </option>
   </component>
@@ -146,6 +146,20 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="p5Test" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="apartment" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="data" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
       <pane id="Scope" />
@@ -167,8 +181,8 @@
       <recent name="$USER_HOME$/sound/lib" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$USER_HOME$/apartment/lib" />
       <recent name="$USER_HOME$/apartment/data" />
+      <recent name="$USER_HOME$/apartment/lib" />
       <recent name="$USER_HOME$/sound/data" />
       <recent name="$USER_HOME$/sound/lib" />
       <recent name="$USER_HOME$/sound/lib" />
@@ -395,24 +409,24 @@
     </entry>
     <entry file="file://$USER_HOME$/apartment/apartment.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.875">
-          <caret line="11" column="34" selection-start-line="11" selection-start-column="34" selection-end-line="11" selection-end-column="34" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/apartment/apartment.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="33" column="61" selection-start-line="33" selection-start-column="61" selection-end-line="33" selection-end-column="61" />
+        <state vertical-scroll-proportion="-9.375">
+          <caret line="15" column="38" selection-start-line="15" selection-start-column="32" selection-end-line="15" selection-end-column="38" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$USER_HOME$/apartment/apartment.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.871612">
-          <caret line="70" column="0" selection-start-line="70" selection-start-column="0" selection-end-line="70" selection-end-column="0" />
+        <state vertical-scroll-proportion="-11.708333">
+          <caret line="40" column="27" selection-start-line="39" selection-start-column="3" selection-end-line="40" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/apartment/apartment.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6346705">
+          <caret line="313" column="75" selection-start-line="313" selection-start-column="75" selection-end-line="313" selection-end-column="75" />
           <folding />
         </state>
       </provider>

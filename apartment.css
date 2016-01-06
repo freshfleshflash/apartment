@@ -30,15 +30,15 @@ svg {
     animation-timing-function: linear;
     animation-delay: 1s;
     animation-iteration-count: infinite;
-    /*animation-direction: alternate;*/
+    animation-direction: alternate;
     animation-fill-mode: none;
-    animation-play-state: paused;
+    animation-play-state: running;
 }
 
 
 #room3_3 .human{
     animation-name: walk;
-    animation-duration: 5s;
+    animation-duration: 2s;
 }
 
 #room3_3 .human .leftLeg {
@@ -47,16 +47,13 @@ svg {
 }
 
 #room3_3 .human .rightLeg{
-    animation-name: rotateRightLeg;
-    animation-duration: 0.5s;
+    /*animation-name: rotateRightLeg;*/
+    /*animation-duration: 0.5s;*/
 }
 
 @keyframes walk {
-    /*0% {transform: translate(0px);}*/
-    25% {transform: translate(70px);}
-    50% {transform: translate(0px);}
-    75% {transform: translate(-70px);}
-    100% {transform: translate(0px);}
+    from {transform: translate(0px);}
+    to {transform: translate(50px);}
 }
 
 @keyframes rotateLeftLeg {
@@ -68,3 +65,24 @@ svg {
     from {transform: rotate(30deg);}
     to {transform: rotate(-10deg);}
 }
+
+#room3_4 .human .leftUpperArm{
+     /*animation-name: leftArmSweep;*/
+     /*animation-play-state: running;*/
+}
+
+#room3_4 .human .rightUpperArm {
+    /*animation-name: rightArmSweep;*/
+    /*animation-play-state: running;*/
+}
+
+@keyframes leftArmSweep {
+    from {transform: rotate(30deg);}
+    to {transform: rotate(-30deg);}
+}
+
+@keyframes rightArmSweep {
+    from {transform: rotate(45deg);}
+    to {transform: rotate(-15deg);}
+}
+
