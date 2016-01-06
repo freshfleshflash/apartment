@@ -18,6 +18,10 @@ svg {
     z-index: -999;
 }
 
+#audioSvg {
+    z-index: 9999;
+}
+
 button {
     position: absolute;
     z-index: 999;
@@ -28,6 +32,10 @@ button {
 }
 
 
+
+/*.body {*/
+    /*transform-origin: 50% 100%;*/
+/*}*/
 
 @keyframes rotation {
     from {transform: rotate(180deg);}
