@@ -1,4 +1,4 @@
-var music = $('#sound')[0];
+var sound = $('#sound')[0];
 
 var totalW = 1280;//$('body').width();
 var totalH = 728;//$('body').height();
@@ -19,6 +19,9 @@ var bedRoomW = barGap * 8;
 var humans = [];
 
 var audioOn = false;
+
+var alarmLevel = 4;
+var alarmGroup = [['3_4'], ['3_2', '2_3', '4_3'], ['2_4', '2_2', '4_2', '4_4'], ['1_1', '1_2', '1_3', '1_4', '2_1', '3_1', '4_1']];
 
 var extraSvg = d3.select('body')
     .append('svg')
@@ -49,7 +52,7 @@ function positionRooms(svg) {
                 stroke: 'black',
                 strokeWidth: 1
             });
-            rooms.push(new Room(gapW + i * (roomW + gapW), gapH + j * (roomH + gapH), gRoom));
+            rooms.push(new Room(gapW + i * (roomW + gapW), gapH + j * (roomH + gapH), gRoom, 'room' + (i + 1) + '_' + (j + 1)));
         }
     }
 }
@@ -58,6 +61,8 @@ function drawBasis(svg) {
     for(var i = 0; i < rooms.length; i++) {
         drawRoom(svg, rooms[i]);
     }
+
+    makeAlarmGroup();
 
     drawFurniture(svg);
 
@@ -176,36 +181,65 @@ function drawAudio(svg, room) {
 }
 
 function connectAudio(x, y, w, h) {
+    var volumeDeg = 0.01;
+
+    $(window).keypress(function(e) {
+        var code = e.which || e.keyCode;
+
+        if(code == 112) {
+            sound.play();
+            sound.volume = 0.5;
+            audioOn = true;
+        }
+        if(code == 115) {
+            sound.pause();
+            sound.volume = 0.5;
+            sound.currentTime = 0;
+            audioOn = false;
+        }
+        if(code == 105) {
+            if(sound.volume <= 1 - volumeDeg) {
+                sound.volume += volumeDeg;
+            }
+        }
+        if(code == 100) {
+            if(sound.volume >= volumeDeg*2) {
+                sound.volume -= volumeDeg;
+            }
+        }
+    });
+
     $('#playButton').click(function() {
-        $('#sound')[0].play();
-        $('#sound')[0].volume = 0.5;
+        sound.play();
+        sound.volume = 0.5;
         audioOn = true;
     });
 
     $('#stopButton').click(function() {
-        $('#sound')[0].pause();
-        $('#sound')[0].volume = 0.5;
-        $('#sound')[0].currentTime = 0;
+        sound.pause();
+        sound.volume = 0.5;
+        sound.currentTime = 0;
         audioOn = false;
     });
 
-    var volumeDeg = 0.1;
 
     $('#increaseButton').click(function() {
-        if($('#sound')[0].volume <= 1 - volumeDeg) {
-            $('#sound')[0].volume += volumeDeg;
+        if(sound.volume <= 1 - volumeDeg) {
+            sound.volume += volumeDeg;
         }
+        console.log(sound.volume);
     });
 
     $('#decreaseButton').click(function() {
-        if($('#sound')[0].volume >= volumeDeg*2) {
-            $('#sound')[0].volume -= volumeDeg;
+        if(sound.volume >= volumeDeg*2) {
+            sound.volume -= volumeDeg;
         }
+        console.log(sound.volume);
     });
 
     $('#sound').bind('ended', function() {
         console.log("end");
-        $('#sound')[0].volume = 0.5;
+        sound.volume = 0.5;
         audioOn = false;
     });
 
@@ -258,6 +292,8 @@ function connectAudio(x, y, w, h) {
         var ampMin = 1500;
         var ampMax = 3700;
 
+        var volume = sound.volume;
+
         //console.log(amp);
         //if(amp > ampMin + (ampMax - ampMin) * 0.7) console.log(amp);
 
@@ -273,25 +309,99 @@ function connectAudio(x, y, w, h) {
                 return 'hsl(' + math_map(amp, ampMin, ampMax, 120, 0) + ',' + math_map(d, 0, 255, 0, 100) + '%, 50%)';
             });
 
-        var bass = (frequencyData[1]) / 1;
-
         if(audioOn) {
-            $('#room3_3 .human, #room3_3 .human .leftLeg, #room3_3 .human .leftArm, #room3_3 .human .rightLeg, #room3_3 .human .rightArm').css('animation-play-state', 'running');
-
-            $('#room3_3 .human .leftArm').attr('transform', "rotate(" + (90 + math_map(bass, 0, 255, 0, -60)) + ", " + getPivotPos('#room3_3', 'leftUpperArm', 'x1') + ", " + getPivotPos('#room3_3', 'leftUpperArm', 'y1') + ")");
-            $('#room3_3 .human .leftLowerArm').attr('transform', "rotate(" + (0+ math_map(bass, 0, 255, 0, -160)) + ", " + getPivotPos('#room3_3', 'leftLowerArm', 'x1') + ", " + getPivotPos('#room3_3', 'leftLowerArm', 'y1') + ")");
-
-            $('#room3_3 .human .rightArm').attr('transform', "rotate(" + (90 + math_map(bass, 0, 255, 0, 60)) + ", " + getPivotPos('#room3_3', 'rightUpperArm', 'x1') + ", " + getPivotPos('#room3_3', 'rightUpperArm', 'y1') + ")");
-            $('#room3_3 .human .rightLowerArm').attr('transform', "rotate(" + (0+ math_map(bass, 0, 255, 0, 160)) + ", " + getPivotPos('#room3_3', 'rightLowerArm', 'x1') + ", " + getPivotPos('#room3_3', 'rightLowerArm', 'y1') + ")");
-
-            $('#room3_3 .audio .speaker .outerSpeaker circle').css('transform', 'scale(' + math_map(bass, 0, 255, 0.1, 1.4) +')');
-            $('#room3_3 .audio .speaker .innerSpeaker circle').css('transform', 'scale(' + math_map(bass, 0, 255, 0.1, 1.4) +')');
+            var bass = (frequencyData[1]) / 1;
+            dance(bass);
+            checkNoise(volume);
         } else {
+            $('.human, #room3_3 .human .leftLeg, #room3_3 .human .rightLeg').css('animation-play-state', 'paused');
+
             $('#room3_3 .audio .speaker .outerSpeaker circle').css('transform', 'scale(1)');
             $('#room3_3 .audio .speaker .innerSpeaker circle').css('transform', 'scale(1)');
         }
     }
 }
+
+function checkNoise(volume) {
+    var alarm = Math.floor(math_map(volume, 0.5, 1, 0, 5));
+
+    if(alarm >= 1) {
+        controlBubble.on(0);
+        if(alarm >= 2) {
+            controlBubble.on(1);
+            closeEar('a2');
+            if(alarm >= 3) {
+                controlBubble.on(2);
+                closeEar('a3');
+                if(alarm >= 4) {
+                    controlBubble.on(3);
+                    closeEar('a4');
+                } else{
+                    controlBubble.off(3);
+                    openEar('a4');
+                }
+            } else {
+                controlBubble.off(2);
+                openEar('a3');
+            }
+        } else {
+            controlBubble.off(1);
+            openEar('a2');
+        }
+    } else {
+        controlBubble.off(0);
+    }
+}
+
+var controlBubble = {
+    on: function(groupNum) {
+        for(var i = 0; i < alarmGroup[groupNum].length; i++) {
+            $('#bubble_room' + alarmGroup[groupNum][i]).css('display', 'block');
+        }
+    },
+    off: function (groupNum) {
+        for(var i = 0; i < alarmGroup[groupNum].length; i++) {
+            $('#bubble_room' + alarmGroup[groupNum][i]).css('display', 'none');
+        }
+    }
+};
+
+function makeAlarmGroup() {
+    for(var i = 0; i < 4; i++) {
+        for(var j = 0; j < alarmGroup[i].length; j++) {
+            $('#room' + alarmGroup[i][j]).addClass('a' + (i+1));
+            $('#bubble_room' + alarmGroup[i][j]).addClass('a' + (i+1));
+        }
+    }
+}
+
+function closeEar(alarmGroup) {
+    $('.' + alarmGroup + ' .human .leftArm').css('transform', 'rotate(90deg)');
+    $('.' + alarmGroup + ' .human .rightArm').css('transform', 'rotate(-90deg)');
+    $('.' + alarmGroup + ' .human .leftLowerArm').css('transform', 'rotate(150deg)');
+    $('.' + alarmGroup + ' .human .rightLowerArm').css('transform', 'rotate(-150deg)');
+}
+
+function openEar(alarmGroup) {
+    $('.' + alarmGroup + ' .human .leftArm').css('transform', 'rotate(0deg)');
+    $('.' + alarmGroup + ' .human .rightArm').css('transform', 'rotate(0deg)');
+    $('.' + alarmGroup + ' .human .leftLowerArm').css('transform', 'rotate(0deg)');
+    $('.' + alarmGroup + ' .human .rightLowerArm').css('transform', 'rotate(0deg)');
+}
+
+function dance(bass) {
+    $('#room3_3 .human, #room3_3 .human .leftLeg, #room3_3 .human .leftArm, #room3_3 .human .rightLeg, #room3_3 .human .rightArm').css('animation-play-state', 'running');
+
+    $('#room3_3 .human .leftArm').attr('transform', "rotate(" + (90 + math_map(bass, 0, 255, 0, -60)) + ", " + getPivotPos('#room3_3', 'leftUpperArm', 'x1') + ", " + getPivotPos('#room3_3', 'leftUpperArm', 'y1') + ")");
+    $('#room3_3 .human .leftLowerArm').attr('transform', "rotate(" + (0 + math_map(bass, 50, 255, 0, -180)) + ", " + getPivotPos('#room3_3', 'leftLowerArm', 'x1') + ", " + getPivotPos('#room3_3', 'leftLowerArm', 'y1') + ")");
+
+    $('#room3_3 .human .rightArm').attr('transform', "rotate(" + (90 + math_map(bass, 0, 255, 0, 60)) + ", " + getPivotPos('#room3_3', 'rightUpperArm', 'x1') + ", " + getPivotPos('#room3_3', 'rightUpperArm', 'y1') + ")");
+    $('#room3_3 .human .rightLowerArm').attr('transform', "rotate(" + (0 + math_map(bass, 50, 255, 0, 180)) + ", " + getPivotPos('#room3_3', 'rightLowerArm', 'x1') + ", " + getPivotPos('#room3_3', 'rightLowerArm', 'y1') + ")");
+
+    $('#room3_3 .audio .speaker .outerSpeaker circle').css('transform', 'scale(' + math_map(bass, 0, 255, 0.1, 1.4) + ')');
+    $('#room3_3 .audio .speaker .innerSpeaker circle').css('transform', 'scale(' + math_map(bass, 0, 255, 0.1, 1.4) + ')');
+}
+
 
 function drawBroom(svg, human) {
     var gHuman = human.gHuman;
@@ -313,24 +423,25 @@ function drawBroom(svg, human) {
     }
 }
 
-function Room(x, y, gRoom) {
+function Room(x, y, gRoom, id) {
     this.x = x;
     this.y = y;
     this.w = roomW;
     this.h = roomH;
     this.gRoom = gRoom;
+    this.id = id;
 }
 
 function Human(room, gHuman) {
     this.gRoom = room.gRoom;
     this.gHuman = gHuman;
     this.x = room.x + room.w/2;
-    this.y = room.y + 70;
+    this.y = room.y + 75;
     this.faceR = 7;
     this.bodyW = this.faceR * 2;
     this.bodyH = this.bodyW * 2;
     this.armLeng = this.bodyH * 0.9;
-    this.legLeng = this.bodyH * 0.75;
+    this.legLeng = this.bodyH * 0.8;
 }
 
 function drawRoom(svg, room) {
@@ -345,6 +456,8 @@ function drawRoom(svg, room) {
     svg.line(gRoom, x + 8 * barGap, y, x + 8 * barGap, y + h * 0.75, {class: 'wall'});
 
     drawClock(svg, gRoom, x, y);
+
+    drawBubble(room);
 }
 
 function drawBars(svg, room) {
@@ -423,6 +536,17 @@ function drawHuman(svg, human) {
     svg.line(gRightLeg, x + faceR, y + faceR + bodyH, x + faceR, y + faceR + bodyH + legLeng);
 }
 
+function drawBubble(room) {
+    $('body').append('<div class="bubble" id=bubble_' + room.id + '>TURN THE MUSIC DOWN!!!</div>');
+
+    var w = $('.bubble').width();
+    var x = room.x + room.w/2 - w/2;
+    var y = room.y + 30;
+
+    $('#bubble_' + room.id).css('left', x);
+    $('#bubble_' + room.id).css('top', y);
+}
+
 function renderCat(svg) {
     var gCat = svg.group({class: 'cat'});
     svg.rect(gCat, totalW/2, totalH - 30, 10, 20, {class:'body', fill: 'orange'});
@@ -443,3 +567,5 @@ function getPivotPos(room, bodyParts, point) {
 function math_map(value, input_min, input_max, output_min, output_max) {
     return output_min + (output_max - output_min) * (value - input_min) / (input_max - input_min);
 }
+
+
