@@ -31,21 +31,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="apartment.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="apartment.js" pinned="false" current-in-tab="true">
         <entry file="file://$USER_HOME$/apartment/apartment.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="393" column="18" selection-start-line="393" selection-start-column="18" selection-end-line="393" selection-end-column="18" />
+            <state vertical-scroll-proportion="-0.5057307">
+              <caret line="235" column="29" selection-start-line="235" selection-start-column="29" selection-end-line="235" selection-end-column="29" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="apartment.css" pinned="false" current-in-tab="true">
+      <file leaf-file-name="apartment.css" pinned="false" current-in-tab="false">
         <entry file="file://$USER_HOME$/apartment/apartment.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.14978603">
-              <caret line="25" column="22" selection-start-line="25" selection-start-column="22" selection-end-line="25" selection-end-column="22" />
+            <state vertical-scroll-proportion="-2.9583333">
+              <caret line="61" column="30" selection-start-line="61" selection-start-column="30" selection-end-line="61" selection-end-column="30" />
               <folding />
             </state>
           </provider>
@@ -82,8 +82,8 @@
         <option value="$USER_HOME$/apartment/building.js" />
         <option value="$USER_HOME$/apartment/apt_backup.js" />
         <option value="$USER_HOME$/apartment/apartment.html" />
-        <option value="$USER_HOME$/apartment/apartment.js" />
         <option value="$USER_HOME$/apartment/apartment.css" />
+        <option value="$USER_HOME$/apartment/apartment.js" />
       </list>
     </option>
   </component>
@@ -416,18 +416,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/apartment/apartment.js">
+    <entry file="file://$USER_HOME$/apartment/apartment.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="393" column="18" selection-start-line="393" selection-start-column="18" selection-end-line="393" selection-end-column="18" />
+        <state vertical-scroll-proportion="-2.9583333">
+          <caret line="61" column="30" selection-start-line="61" selection-start-column="30" selection-end-line="61" selection-end-column="30" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/apartment/apartment.css">
+    <entry file="file://$USER_HOME$/apartment/apartment.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.14978603">
-          <caret line="25" column="22" selection-start-line="25" selection-start-column="22" selection-end-line="25" selection-end-column="22" />
+        <state vertical-scroll-proportion="-0.5057307">
+          <caret line="235" column="29" selection-start-line="235" selection-start-column="29" selection-end-line="235" selection-end-column="29" />
           <folding />
         </state>
       </provider>
