@@ -1,4 +1,4 @@
-var sound = $('#sound')[0];
+var music = $('#music')[0];
 
 var totalW = 1280;//$('body').width();
 var totalH = 728;//$('body').height();
@@ -187,64 +187,64 @@ function connectAudio(x, y, w, h) {
         var code = e.which || e.keyCode;
 
         if(code == 112) {
-            sound.play();
-            sound.volume = 0.5;
+            music.play();
+            music.volume = 0.5;
             audioOn = true;
         }
         if(code == 115) {
-            sound.pause();
-            sound.volume = 0.5;
-            sound.currentTime = 0;
+            music.pause();
+            music.volume = 0.5;
+            music.currentTime = 0;
             audioOn = false;
         }
         if(code == 105) {
-            if(sound.volume <= 1 - volumeDeg) {
-                sound.volume += volumeDeg;
+            if(music.volume <= 1 - volumeDeg) {
+                music.volume += volumeDeg;
             }
         }
         if(code == 100) {
-            if(sound.volume >= volumeDeg*2) {
-                sound.volume -= volumeDeg;
+            if(music.volume >= volumeDeg*2) {
+                music.volume -= volumeDeg;
             }
         }
     });
 
     $('#playButton').click(function() {
-        sound.play();
-        sound.volume = 0.5;
+        music.play();
+        music.volume = 0.5;
         audioOn = true;
     });
 
     $('#stopButton').click(function() {
-        sound.pause();
-        sound.volume = 0.5;
-        sound.currentTime = 0;
+        music.pause();
+        music.volume = 0.5;
+        music.currentTime = 0;
         audioOn = false;
     });
 
 
     $('#increaseButton').click(function() {
-        if(sound.volume <= 1 - volumeDeg) {
-            sound.volume += volumeDeg;
+        if(music.volume <= 1 - volumeDeg) {
+            music.volume += volumeDeg;
         }
-        console.log(sound.volume);
+        console.log(music.volume);
     });
 
     $('#decreaseButton').click(function() {
-        if(sound.volume >= volumeDeg*2) {
-            sound.volume -= volumeDeg;
+        if(music.volume >= volumeDeg*2) {
+            music.volume -= volumeDeg;
         }
-        console.log(sound.volume);
+        console.log(music.volume);
     });
 
-    $('#sound').bind('ended', function() {
+    $('#music').bind('ended', function() {
         console.log("end");
-        sound.volume = 0.5;
+        music.volume = 0.5;
         audioOn = false;
     });
 
     var audioContext = new (window.AudioContext || window.webkitAudioContext)();
-    var audioElement = document.getElementById('sound');
+    var audioElement = document.getElementById('music');
     var audioSource = audioContext.createMediaElementSource(audioElement);
     var analyser = audioContext.createAnalyser();
 
@@ -292,10 +292,7 @@ function connectAudio(x, y, w, h) {
         var ampMin = 1500;
         var ampMax = 3700;
 
-        var volume = sound.volume;
-
-        //console.log(amp);
-        //if(amp > ampMin + (ampMax - ampMin) * 0.7) console.log(amp);
+        var volume = music.volume;
 
         vSvg.selectAll('rect')
             .data(frequencyData)
@@ -306,12 +303,12 @@ function connectAudio(x, y, w, h) {
                 return math_map(d, 0, 255, 0, vH*0.9);
             })
             .attr('fill', function (d) {
-                return 'hsl(' + math_map(amp, ampMin, ampMax, 120, 0) + ',' + math_map(d, 0, 255, 0, 100) + '%, 50%)';
+                return 'hsl(' + math_map(volume, 0, 1, 120, 0) + ',' + math_map(d, 0, 255, 0, 100) + '%, 50%)';
             });
 
         if(audioOn) {
             var bass = (frequencyData[1]) / 1;
-            dance(bass);
+            dance(bass, volume);
             checkNoise(volume);
         } else {
             $('.human, #room3_3 .human .leftLeg, #room3_3 .human .rightLeg').css('animation-play-state', 'paused');
@@ -389,7 +386,7 @@ function openEar(alarmGroup) {
     $('.' + alarmGroup + ' .human .rightLowerArm').css('transform', 'rotate(0deg)');
 }
 
-function dance(bass) {
+function dance(bass, volume) {
     $('#room3_3 .human, #room3_3 .human .leftLeg, #room3_3 .human .leftArm, #room3_3 .human .rightLeg, #room3_3 .human .rightArm').css('animation-play-state', 'running');
 
     $('#room3_3 .human .leftArm').attr('transform', "rotate(" + (90 + math_map(bass, 0, 255, 0, -60)) + ", " + getPivotPos('#room3_3', 'leftUpperArm', 'x1') + ", " + getPivotPos('#room3_3', 'leftUpperArm', 'y1') + ")");
@@ -398,8 +395,8 @@ function dance(bass) {
     $('#room3_3 .human .rightArm').attr('transform', "rotate(" + (90 + math_map(bass, 0, 255, 0, 60)) + ", " + getPivotPos('#room3_3', 'rightUpperArm', 'x1') + ", " + getPivotPos('#room3_3', 'rightUpperArm', 'y1') + ")");
     $('#room3_3 .human .rightLowerArm').attr('transform', "rotate(" + (0 + math_map(bass, 50, 255, 0, 180)) + ", " + getPivotPos('#room3_3', 'rightLowerArm', 'x1') + ", " + getPivotPos('#room3_3', 'rightLowerArm', 'y1') + ")");
 
-    $('#room3_3 .audio .speaker .outerSpeaker circle').css('transform', 'scale(' + math_map(bass, 0, 255, 0.1, 1.4) + ')');
-    $('#room3_3 .audio .speaker .innerSpeaker circle').css('transform', 'scale(' + math_map(bass, 0, 255, 0.1, 1.4) + ')');
+    $('#room3_3 .audio .speaker .outerSpeaker circle').css('transform', 'scale(' + math_map(bass, 0, 255, 0.5, 0.5 + volume * 1.7) + ')');
+    $('#room3_3 .audio .speaker .innerSpeaker circle').css('transform', 'scale(' + math_map(bass, 0, 255, 0.5, 0.5 + volume * 1.7) + ')');
 }
 
 
