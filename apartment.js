@@ -1,3 +1,5 @@
+var music = $('#sound')[0];
+
 var totalW = 1280;//$('body').width();
 var totalH = 728;//$('body').height();
 
@@ -14,6 +16,8 @@ var numBar = 22;
 var barGap = roomW / numBar;
 var bedRoomW = barGap * 8;
 
+var humans = [];
+
 var audioOn = false;
 
 var extraSvg = d3.select('body')
@@ -27,174 +31,85 @@ $('#totalSvg').svg(
 );
 
 function init(svg) {
-    drawBuilding(svg);
-    renderRooms(svg);
+    positionRooms(svg);
+    drawBasis(svg);
     renderOthers(svg);
-
-    var myrect = svg.rect(25, 25, 150, '25%', 10, 10, {fill: 'none', stroke: 'blue', strokeWidth: 3, transform: 'rotate(0, 100, 75)'});
-
-    $(myrect).animate({svgWidth: 200, svgHeight: '30%', svgStroke: 'aqua', svgTransform: 'rotate(60, 0, 0)'}, 2000);
-}
-
-function renderRooms(svg) {
-    render1_1(svg);
-    render1_2(svg);
-    render1_3(svg);
-    render1_4(svg);
-    render2_1(svg);
-    render2_2(svg);
-    render2_3(svg);
-    render2_4(svg);
-    render3_1(svg);
-    render3_2(svg);
-    render3_3(svg);
-    render3_4(svg);
-    render4_1(svg);
-    render4_2(svg);
-    render4_3(svg);
-    render4_4(svg);
 }
 
 function renderOthers(svg) {
     renderCat(svg);
 }
 
-function drawBuilding(svg) {
+function positionRooms(svg) {
     for(var i = 0; i < 4; i++) {
-        for(var j = 0; j < 4; j++) {
-            var gRoom = svg.group({class: 'room', id: 'room' + (i+1) + '_' + (j+1), stroke: 'black', strokeWidth: 1});
+        for (var j = 0; j < 4; j++) {
+            var gRoom = svg.group({
+                class: 'room',
+                id: 'room' + (i + 1) + '_' + (j + 1),
+                stroke: 'black',
+                strokeWidth: 1
+            });
             rooms.push(new Room(gapW + i * (roomW + gapW), gapH + j * (roomH + gapH), gRoom));
         }
     }
 }
 
-function render1_1(svg) {
-    var room = rooms[0];
-    var x = room.x;
-    var y = room.y;
+function drawBasis(svg) {
+    for(var i = 0; i < rooms.length; i++) {
+        drawRoom(svg, rooms[i]);
+    }
 
-    drawRoom(svg, room);
-    //drawHuman(svg, room.gRoom, new Human(x + 100, y + 80));
+    drawFurniture(svg);
+
+    for(var i = 0; i < rooms.length; i++) {
+        var gHuman = svg.group(rooms[i].gRoom, {class: 'human', fill: 'white'});
+        humans.push(new Human(rooms[i], gHuman));
+        drawHuman(svg, humans[i]);
+        drawBars(svg, rooms[i]);
+    }
+
+    drawProps(svg);
 }
 
-function render1_2(svg) {
-    var room = rooms[1];
-    var x = room.x;
-    var y = room.y;
+function drawFurniture(svg) {
+    var furniture = {
+        room1_1: function(svg, room) {
 
-    drawRoom(svg, room);
-    //drawHuman(svg, room.gRoom, new Human(x + 100, y + 80));
+        },
+        room3_3: function(svg, room) {
+            drawDesk(svg, room);
+            drawAudio(svg, room);
+        }
+    };
+
+    furniture.room3_3(svg, rooms[10]);
 }
 
-function render1_3(svg) {
-    var room = rooms[2];
-    var x = room.x;
-    var y = room.y;
+function drawProps(svg) {
+    var props = {
+        room3_4: function(svg, human) {
+            drawBroom(svg, human);
+        }
+    };
 
-    drawRoom(svg, room);
-    //drawHuman(svg, room.gRoom, new Human(x + 100, y + 80));
+    props.room3_4(svg, humans[11]);
 }
 
-function render1_4(svg) {
-    var room = rooms[3];
-    var x = room.x;
-    var y = room.y;
-
-    drawRoom(svg, room);
-    //drawHuman(svg, room.gRoom, new Human(x + 100, y + 80));
-}
-
-function render2_1(svg) {
-    var room = rooms[4];
-    var x = room.x;
-    var y = room.y;
-
-    drawRoom(svg, room);
-    //drawHuman(svg, room.gRoom, new Human(x + 100, y + 80));
-}
-
-function render2_2(svg) {
-    var room = rooms[5];
-    var x = room.x;
-    var y = room.y;
-
-    drawRoom(svg, room);
-    //drawHuman(svg, room.gRoom, new Human(x + 100, y + 80));
-}
-
-function render2_3(svg) {
-    var room = rooms[6];
-    var x = room.x;
-    var y = room.y;
-
-    drawRoom(svg, room);
-    //drawHuman(svg, room.gRoom, new Human(x + 100, y + 80));
-}
-
-function render2_4(svg) {
-    var room = rooms[7];
-    var x = room.x;
-    var y = room.y;
-
-    drawRoom(svg, room);
-    //drawHuman(svg, room.gRoom, new Human(x + 100, y + 80));
-}
-
-function render3_1(svg) {
-    var room = rooms[8];
-    var x = room.x;
-    var y = room.y;
-
-    drawRoom(svg, room);
-    //drawHuman(svg, room.gRoom, new Human(x + 100, y + 80));
-}
-
-function render3_2(svg) {
-    var room = rooms[9];
-    var x = room.x;
-    var y = room.y;
-
-    drawRoom(svg, room);
-    drawHuman(svg, room.gRoom, new Human(x, y + 80));
-    drawBars(svg, room)
-}
-
-
-function render3_3(svg) {
-    var room = rooms[10];
-    var x = room.x;
-    var y = room.y;
-
-    drawRoom(svg, room);
-
-    drawAudio(svg, room.gRoom, new Audio(x + 130, y + 30));
-    drawDesk(svg, room.gRoom, x + 130, y + 30 + audioH);
-
-    drawHuman(svg, room.gRoom, new Human(x + 130 + audioW/2, y + 80));
-
-    drawBars(svg, room);
-}
-
-function drawDesk(svg, gRoom, x, y) {
+function drawDesk(svg, room) {
+    var x = room.x + 130;
+    var y = room.y + 30 + audioH;
     var w = audioW * 1.1;
     var h = roomH - (roomH * 0.75);
-    svg.rect(gRoom, x - 5, y, w, h, {stroke: 'black', fill: 'none'});
+    svg.rect(room.gRoom, x - 5, y, w, h, {stroke: 'black', fill: 'none'});
 }
 
-function Audio(x, y) {
-    this.x = x;
-    this.y = y;
-    this.w = audioW;
-    this.h = audioH;
-}
+function drawAudio(svg, room) {
+    var x = room.x + 130;
+    var y = room.y + 30;
+    var w = audioW;
+    var h = audioH;
 
-function drawAudio(svg, gRoom, audio) {
-    var x = audio.x;
-    var y = audio.y;
-    var w = audio.w;
-    var h = audio.h;
-
-    var gAudio = svg.group(gRoom, {class: 'audio', stroke: 'black', fill: 'white'});
+    var gAudio = svg.group(room.gRoom, {class: 'audio', stroke: 'black', fill: 'none'});
     svg.rect(gAudio, x, y, w, h);
 
     var gSpeaker = svg.group(gAudio, {class: 'speaker'});
@@ -237,25 +152,24 @@ function drawAudio(svg, gRoom, audio) {
     var playH = playW;
     var playGap = (buttonW - playW) / 2;
 
-    var imgW = buttonW * 0.5;
-    var imgH = imgW;
-    var imgGap = (buttonW - imgW) / 2;
+    var arrowW = buttonW * 0.5;
+    var arrowH = arrowW;
+    var arrowGap = (buttonW - arrowW) / 2;
 
-    extraSvg.append('rect').attr('id', 'playButton').attr('x', buttonX + buttonGapW + 0*(buttonW + buttonGapW)).attr('y', buttonY).attr('width', buttonW).attr('height', buttonH).attr('stroke', 'black').attr('fill', 'white');
-    extraSvg.append('rect').attr('id', 'stopButton').attr('x', buttonX + buttonGapW + 1*(buttonW + buttonGapW)).attr('y', buttonY).attr('width', buttonW).attr('height', buttonH).attr('stroke', 'black').attr('fill', 'white');
-    extraSvg.append('rect').attr('id', 'increaseButton').attr('x', buttonX + buttonGapW + 2*(buttonW + buttonGapW)).attr('y', buttonY).attr('width', buttonW).attr('height', buttonH).attr('stroke', 'black').attr('fill', 'white');
-    extraSvg.append('rect').attr('id', 'decreaseButton').attr('x', buttonX + buttonGapW + 3*(buttonW + buttonGapW)).attr('y', buttonY).attr('width', buttonW).attr('height', buttonH).attr('stroke', 'black').attr('fill', 'white');
+    extraSvg.append('rect').attr('id', 'playButton').attr('x', buttonX + buttonGapW + 0*(buttonW + buttonGapW)).attr('y', buttonY).attr('width', buttonW).attr('height', buttonH).attr('stroke', 'black').attr('fill', 'none');
+    extraSvg.append('rect').attr('id', 'stopButton').attr('x', buttonX + buttonGapW + 1*(buttonW + buttonGapW)).attr('y', buttonY).attr('width', buttonW).attr('height', buttonH).attr('stroke', 'black').attr('fill', 'none');
+    extraSvg.append('rect').attr('id', 'increaseButton').attr('x', buttonX + buttonGapW + 2*(buttonW + buttonGapW)).attr('y', buttonY).attr('width', buttonW).attr('height', buttonH).attr('stroke', 'black').attr('fill', 'none');
+    extraSvg.append('rect').attr('id', 'decreaseButton').attr('x', buttonX + buttonGapW + 3*(buttonW + buttonGapW)).attr('y', buttonY).attr('width', buttonW).attr('height', buttonH).attr('stroke', 'black').attr('fill', 'none');
 
     extraSvg.append('polygon').attr('points', (buttonX + buttonGapW + 0*(buttonW + buttonGapW) + playGap) + ', ' + (buttonY + playGap) + ' ' + (buttonX + buttonGapW + 0*(buttonW + buttonGapW) + playGap) + ', ' + (buttonY + playGap + playH) + ' ' + (buttonX + buttonGapW + 0*(buttonW + buttonGapW) + playGap + playW) + ', ' + (buttonY + playGap + playH/2));
-    //extraSvg.append('polygon').attr('points', buttonX + buttonGapW + 0*(buttonW + buttonGapW) + playGap + ',10 ' +  buttonX + buttonGapW + 0*(buttonW + buttonGapW) + playGap + ',190 ' +  buttonX + buttonGapW + 0*(buttonW + buttonGapW) + playGap + ',210');
     extraSvg.append('rect').attr('x', buttonX + buttonGapW + 1*(buttonW + buttonGapW) + playGap).attr('y', buttonY + playGap).attr('width', playW).attr('height', playH);
     extraSvg.append('line').attr('x1', buttonX + buttonGapW + 2*(buttonW + buttonGapW) + playGap).attr('y1', buttonY + buttonH - playGap).attr('x2', buttonX + buttonGapW + 2*(buttonW + buttonGapW) + buttonW/2).attr('y2', buttonY + playGap)
         .attr('stroke', 'black');
-    extraSvg.append('line').attr('x1', buttonX + buttonGapW + 2*(buttonW + buttonGapW) + buttonW/2).attr('y1', buttonY + imgGap).attr('x2', buttonX + buttonGapW + 2*(buttonW + buttonGapW) + buttonW - imgGap).attr('y2', buttonY + buttonH - imgGap)
+    extraSvg.append('line').attr('x1', buttonX + buttonGapW + 2*(buttonW + buttonGapW) + buttonW/2).attr('y1', buttonY + arrowGap).attr('x2', buttonX + buttonGapW + 2*(buttonW + buttonGapW) + buttonW - arrowGap).attr('y2', buttonY + buttonH - arrowGap)
         .attr('stroke', 'black');
-    extraSvg.append('line').attr('x1', buttonX + buttonGapW + 3*(buttonW + buttonGapW) + imgGap).attr('y1', buttonY + imgGap).attr('x2', buttonX + buttonGapW + 3*(buttonW + buttonGapW) + buttonW/2).attr('y2', buttonY + buttonH - imgGap)
+    extraSvg.append('line').attr('x1', buttonX + buttonGapW + 3*(buttonW + buttonGapW) + arrowGap).attr('y1', buttonY + arrowGap).attr('x2', buttonX + buttonGapW + 3*(buttonW + buttonGapW) + buttonW/2).attr('y2', buttonY + buttonH - arrowGap)
         .attr('stroke', 'black');
-    extraSvg.append('line').attr('x1', buttonX + buttonGapW + 3*(buttonW + buttonGapW) + buttonW/2).attr('y1', buttonY + buttonH - imgGap).attr('x2', buttonX + buttonGapW + 3*(buttonW + buttonGapW) + buttonW - imgGap).attr('y2', buttonY + imgGap)
+    extraSvg.append('line').attr('x1', buttonX + buttonGapW + 3*(buttonW + buttonGapW) + buttonW/2).attr('y1', buttonY + buttonH - arrowGap).attr('x2', buttonX + buttonGapW + 3*(buttonW + buttonGapW) + buttonW - arrowGap).attr('y2', buttonY + arrowGap)
         .attr('stroke', 'black');
 
     connectAudio(visWindowX, visWindowY, visWindowW, visWindowH);
@@ -264,20 +178,35 @@ function drawAudio(svg, gRoom, audio) {
 function connectAudio(x, y, w, h) {
     $('#playButton').click(function() {
         $('#sound')[0].play();
+        $('#sound')[0].volume = 0.5;
         audioOn = true;
     });
 
     $('#stopButton').click(function() {
         $('#sound')[0].pause();
+        $('#sound')[0].volume = 0.5;
+        $('#sound')[0].currentTime = 0;
         audioOn = false;
     });
 
+    var volumeDeg = 0.1;
+
     $('#increaseButton').click(function() {
-        $('#sound')[0].volume += 0.1;
+        if($('#sound')[0].volume <= 1 - volumeDeg) {
+            $('#sound')[0].volume += volumeDeg;
+        }
     });
 
     $('#decreaseButton').click(function() {
-        $('#sound')[0].volume -= 0.1;
+        if($('#sound')[0].volume >= volumeDeg*2) {
+            $('#sound')[0].volume -= volumeDeg;
+        }
+    });
+
+    $('#sound').bind('ended', function() {
+        console.log("end");
+        $('#sound')[0].volume = 0.5;
+        audioOn = false;
     });
 
     var audioContext = new (window.AudioContext || window.webkitAudioContext)();
@@ -326,9 +255,11 @@ function connectAudio(x, y, w, h) {
         for(var i = 0; i < frequencyData.length; i++) {
             amp += frequencyData[i];
         }
-        var ampMin = 1100;
-        var ampMax = 2200;
+        var ampMin = 1500;
+        var ampMax = 3700;
+
         //console.log(amp);
+        //if(amp > ampMin + (ampMax - ampMin) * 0.7) console.log(amp);
 
         vSvg.selectAll('rect')
             .data(frequencyData)
@@ -353,8 +284,8 @@ function connectAudio(x, y, w, h) {
             $('#room3_3 .human .rightArm').attr('transform', "rotate(" + (90 + math_map(bass, 0, 255, 0, 60)) + ", " + getPivotPos('#room3_3', 'rightUpperArm', 'x1') + ", " + getPivotPos('#room3_3', 'rightUpperArm', 'y1') + ")");
             $('#room3_3 .human .rightLowerArm').attr('transform', "rotate(" + (0+ math_map(bass, 0, 255, 0, 160)) + ", " + getPivotPos('#room3_3', 'rightLowerArm', 'x1') + ", " + getPivotPos('#room3_3', 'rightLowerArm', 'y1') + ")");
 
-            $('#room3_3 .audio .speaker .outerSpeaker circle').css('transform', 'scale(' + math_map(bass, 0, 255, 0.1, 1.3) +')');
-            $('#room3_3 .audio .speaker .innerSpeaker circle').css('transform', 'scale(' + math_map(bass, 0, 255, 0.1, 1.3) +')');
+            $('#room3_3 .audio .speaker .outerSpeaker circle').css('transform', 'scale(' + math_map(bass, 0, 255, 0.1, 1.4) +')');
+            $('#room3_3 .audio .speaker .innerSpeaker circle').css('transform', 'scale(' + math_map(bass, 0, 255, 0.1, 1.4) +')');
         } else {
             $('#room3_3 .audio .speaker .outerSpeaker circle').css('transform', 'scale(1)');
             $('#room3_3 .audio .speaker .innerSpeaker circle').css('transform', 'scale(1)');
@@ -362,59 +293,24 @@ function connectAudio(x, y, w, h) {
     }
 }
 
-function getPivotPos(room, bodyParts, point) {
-    return $(room + ' .human .' + bodyParts).attr(point);
-}
+function drawBroom(svg, human) {
+    var gHuman = human.gHuman;
+    var gBroom = svg.group(gHuman, {class: 'broom'})
+    var x = getPivotPos('#room3_4', 'leftLowerArm', 'x1');
+    var y = getPivotPos('#room3_4', 'leftLowerArm', 'y1') + human.armLeng/2;
+    var stickLeng = 20;
 
-function render3_4(svg) {
-    var room = rooms[11];
-    var x = room.x;
-    var y = room.y;
+    var brushW = 10;
+    var brushH = 3;
+    var brushLeng = stickLeng * 0.4;
+    var numBrush = 7;
+    var brushGap = brushW / numBrush;
 
-    drawRoom(svg, room);
-    drawHuman(svg, room.gRoom, new Human(x + 130, y + 80));
-
-    drawBars(svg, room)
-}
-
-function drawBroom() {
-
-}
-
-function render4_1(svg) {
-    var room = rooms[12];
-    var x = room.x;
-    var y = room.y;
-
-    drawRoom(svg, room);
-    //drawHuman(svg, room.gRoom, new Human(x + 100, y + 80));
-}
-
-function render4_2(svg) {
-    var room = rooms[13];
-    var x = room.x;
-    var y = room.y;
-
-    drawRoom(svg, room);
-    //drawHuman(svg, room.gRoom, new Human(x + 100, y + 80));
-}
-
-function render4_3(svg) {
-    var room = rooms[14];
-    var x = room.x;
-    var y = room.y;
-
-    drawRoom(svg, room);
-    //drawHuman(svg, room.gRoom, new Human(x + 100, y + 80));
-}
-
-function render4_4(svg) {
-    var room = rooms[15];
-    var x = room.x;
-    var y = room.y;
-
-    drawRoom(svg, room);
-    //drawHuman(svg, room.gRoom, new Human(x + 100, y + 80));
+    svg.line(gBroom, x, y, x, y + stickLeng, {strokeWidth: 2, stroke: 'black'});
+    svg.rect(gBroom, x - brushW/2, y + stickLeng, brushW, brushH, {fill: 'white'});
+    for(var i = 0; i < numBrush + 1; i++) {
+        svg.line(gBroom, (x - brushW/2) + i*brushGap, y + stickLeng + brushH, (x - brushW/2) + i*brushGap, y + stickLeng + brushH + brushLeng);
+    }
 }
 
 function Room(x, y, gRoom) {
@@ -423,6 +319,18 @@ function Room(x, y, gRoom) {
     this.w = roomW;
     this.h = roomH;
     this.gRoom = gRoom;
+}
+
+function Human(room, gHuman) {
+    this.gRoom = room.gRoom;
+    this.gHuman = gHuman;
+    this.x = room.x + room.w/2;
+    this.y = room.y + 70;
+    this.faceR = 7;
+    this.bodyW = this.faceR * 2;
+    this.bodyH = this.bodyW * 2;
+    this.armLeng = this.bodyH * 0.9;
+    this.legLeng = this.bodyH * 0.75;
 }
 
 function drawRoom(svg, room) {
@@ -434,18 +342,9 @@ function drawRoom(svg, room) {
     var gRoom = room.gRoom;
 
     svg.rect(gRoom, x, y, w, h, {class: 'frame', fill: 'white', strokeWidth: 1});
-
-    //var gBar = svg.group(gRoom, {class: 'bar'});
-    //svg.line(gBar, x, y + h * 0.75, x + w, y + h * 0.75);
-    //
-    //for(var i = 0; i < numBar; i++) {
-    //    svg.line(gBar, x + i * barGap, y + h * 0.75, x + i * barGap, y + h);
-    //}
-
-    svg.line(gRoom, x + 8 * barGap, y, x + 8 * barGap, y + h * 0.75);
+    svg.line(gRoom, x + 8 * barGap, y, x + 8 * barGap, y + h * 0.75, {class: 'wall'});
 
     drawClock(svg, gRoom, x, y);
-
 }
 
 function drawBars(svg, room) {
@@ -459,7 +358,7 @@ function drawBars(svg, room) {
     var gBar = svg.group(gRoom, {class: 'bar', strokeWidth: 2});
     svg.line(gBar, x, y + h * 0.75, x + w, y + h * 0.75);
 
-    for(var i = 0; i < numBar; i++) {
+    for(var i = 0; i < numBar + 1; i++) {
         svg.line(gBar, x + i * barGap, y + h * 0.75, x + i * barGap, y + h);
     }
 }
@@ -484,25 +383,15 @@ function drawClock(svg, gRoom, roomX, roomY) {
         h = new Date().getHours() % 12;
         m = new Date().getMinutes();
         s = new Date().getSeconds();
-        console.log(h);
+
         $('.clock .hourHand').css('transform', 'rotate(' + math_map(h, 0, 11, -180, 180) + 'deg)');
         $('.clock .minuteHand').css('transform', 'rotate(' + math_map(m, 0, 59, -180, 180) + 'deg)');
         $('.secondHand').css('transform', 'rotate(' + math_map(s, 0, 59, -180, 180) + 'deg)');
     }, 100);
 }
 
-
-function Human(x, y) {
-    this.x = x;
-    this.y = y;
-    this.faceR = 7;
-    this.bodyW = this.faceR * 2;
-    this.bodyH = this.bodyW * 2;
-    this.armLeng = this.bodyH * 0.9;
-    this.legLeng = this.bodyH * 0.75;
-}
-
-function drawHuman(svg, gRoom, human) {
+function drawHuman(svg, human) {
+    var gHuman = human.gHuman;
     var x = human.x;
     var y = human.y;
     var faceR = human.faceR;
@@ -510,8 +399,6 @@ function drawHuman(svg, gRoom, human) {
     var bodyH = human.bodyH;
     var armLeng = human.armLeng;
     var legLeng = human.legLeng;
-
-    var gHuman = svg.group(gRoom, {class: 'human', stroke: 'black', strokeWidth: 1, fill: 'white'});
 
     var gBody = svg.group(gHuman, {class: 'body'});
     svg.rect(gBody, x - faceR, y + faceR, bodyW, bodyH);
@@ -547,6 +434,10 @@ function renderCat(svg) {
     $(window).click(function(e) {
         console.log(e.clientX, e.clientY);
     });
+}
+
+function getPivotPos(room, bodyParts, point) {
+    return Number($(room + ' .human .' + bodyParts).attr(point));
 }
 
 function math_map(value, input_min, input_max, output_min, output_max) {

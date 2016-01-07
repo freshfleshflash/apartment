@@ -21,21 +21,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="apartment.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="apartment.html" pinned="false" current-in-tab="true">
         <entry file="file://$USER_HOME$/apartment/apartment.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-9.375">
-              <caret line="15" column="41" selection-start-line="15" selection-start-column="41" selection-end-line="15" selection-end-column="41" />
+            <state vertical-scroll-proportion="0.19258203">
+              <caret line="9" column="49" selection-start-line="9" selection-start-column="49" selection-end-line="9" selection-end-column="49" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="apartment.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="apartment.js" pinned="false" current-in-tab="false">
         <entry file="file://$USER_HOME$/apartment/apartment.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.5057307">
-              <caret line="235" column="29" selection-start-line="235" selection-start-column="29" selection-end-line="235" selection-end-column="29" />
+            <state vertical-scroll-proportion="-15.851851">
+              <caret line="311" column="91" selection-start-line="311" selection-start-column="91" selection-end-line="311" selection-end-column="91" />
               <folding />
             </state>
           </provider>
@@ -44,9 +44,11 @@
       <file leaf-file-name="apartment.css" pinned="false" current-in-tab="false">
         <entry file="file://$USER_HOME$/apartment/apartment.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-2.9583333">
-              <caret line="61" column="30" selection-start-line="61" selection-start-column="30" selection-end-line="61" selection-end-column="30" />
-              <folding />
+            <state vertical-scroll-proportion="-24.208334">
+              <caret line="101" column="1" selection-start-line="101" selection-start-column="1" selection-end-line="101" selection-end-column="1" />
+              <folding>
+                <marker date="1452184322000" expanded="true" signature="597:1886" placeholder="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -81,9 +83,9 @@
         <option value="$USER_HOME$/apartment/room3_3.js" />
         <option value="$USER_HOME$/apartment/building.js" />
         <option value="$USER_HOME$/apartment/apt_backup.js" />
-        <option value="$USER_HOME$/apartment/apartment.html" />
-        <option value="$USER_HOME$/apartment/apartment.css" />
         <option value="$USER_HOME$/apartment/apartment.js" />
+        <option value="$USER_HOME$/apartment/apartment.css" />
+        <option value="$USER_HOME$/apartment/apartment.html" />
       </list>
     </option>
   </component>
@@ -333,7 +335,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="3" column="1" selection-start-line="3" selection-start-column="1" selection-end-line="3" selection-end-column="1" />
-          <folding />
+          <folding>
+            <marker date="1452184322000" expanded="true" signature="597:1886" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -349,7 +353,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="3" column="1" selection-start-line="3" selection-start-column="1" selection-end-line="3" selection-end-column="1" />
-          <folding />
+          <folding>
+            <marker date="1452184322000" expanded="true" signature="597:1886" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -392,42 +398,28 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/apartment/lib/jquery.svganim.min.js">
+    <entry file="file://$USER_HOME$/apartment/apartment.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/apartment/lib/jquery.svgdom.min.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/apartment/apartment.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-9.375">
-          <caret line="15" column="41" selection-start-line="15" selection-start-column="41" selection-end-line="15" selection-end-column="41" />
+        <state vertical-scroll-proportion="-15.851851">
+          <caret line="311" column="91" selection-start-line="311" selection-start-column="91" selection-end-line="311" selection-end-column="91" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$USER_HOME$/apartment/apartment.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-2.9583333">
-          <caret line="61" column="30" selection-start-line="61" selection-start-column="30" selection-end-line="61" selection-end-column="30" />
-          <folding />
+        <state vertical-scroll-proportion="-24.208334">
+          <caret line="101" column="1" selection-start-line="101" selection-start-column="1" selection-end-line="101" selection-end-column="1" />
+          <folding>
+            <marker date="1452184322000" expanded="true" signature="597:1886" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/apartment/apartment.js">
+    <entry file="file://$USER_HOME$/apartment/apartment.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.5057307">
-          <caret line="235" column="29" selection-start-line="235" selection-start-column="29" selection-end-line="235" selection-end-column="29" />
+        <state vertical-scroll-proportion="0.19258203">
+          <caret line="9" column="49" selection-start-line="9" selection-start-column="49" selection-end-line="9" selection-end-column="49" />
           <folding />
         </state>
       </provider>

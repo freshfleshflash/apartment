@@ -32,15 +32,13 @@ svg {
     animation-iteration-count: infinite;
     animation-direction: alternate;
     animation-fill-mode: none;
-    animation-play-state: running;
+    animation-play-state: paused;
 }
 
 
-#room3_3 .human{
+.human{
     animation-name: walk;
     animation-duration: 2s;
-    animation-play-state: paused;
-
 }
 
 #room3_3 .human .leftLeg, #room3_3 .human .leftArm {
@@ -72,7 +70,7 @@ svg {
     to {transform: rotate(60deg);}
 }
 
-#room3_4 .human .leftArm{
+#room3_4 .human .leftArm, .broom {
      animation-name: leftArmSweep;
      animation-play-state: running;
 }
@@ -95,4 +93,12 @@ svg {
 
 #room3_3 .audio .speaker .outerSpeaker circle, #room3_3 .audio .speaker .innerSpeaker circle {
     transform-origin: 50% 50%;
+}
+
+.broom {
+    transform-origin: 0% -100%;
+}
+
+@keyframes getAngry {
+
 }
