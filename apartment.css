@@ -54,10 +54,9 @@ svg {
     animation-play-state: paused;
 }
 
-
 .human {
     animation-name: walk;
-    animation-duration: 2s;
+    animation-duration: 3s;
 }
 
 #room3_3 .human .leftLeg, #room3_3 .human .leftArm {

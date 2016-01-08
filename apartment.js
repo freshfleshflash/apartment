@@ -1,3 +1,16 @@
+var src1 = 'data/beanbag_chair.m4a';
+var src2 = 'data/dbll.mp3';
+var src3 = 'data/stay_with_me.mp3';
+var src4 = 'data/hung_up.mp3';
+
+$(window).keypress(function(e) {
+    var code = e.which || e.keyCode;
+    if(code == 49) $('#music').attr('src', src1);
+    else if(code == 50) $('#music').attr('src', src2);
+    else if(code == 51) $('#music').attr('src', src3);
+    else if(code == 52) $('#music').attr('src', src4);
+});
+
 var music = $('#music')[0];
 
 var totalW = 1280;//$('body').width();
@@ -22,6 +35,19 @@ var audioOn = false;
 
 var alarmLevel = 4;
 var alarmGroup = [['3_4'], ['3_2', '2_3', '4_3'], ['2_4', '2_2', '4_2', '4_4'], ['1_1', '1_2', '1_3', '1_4', '2_1', '3_1', '4_1']];
+
+var controlBubble = {
+    on: function(groupNum) {
+        for(var i = 0; i < alarmGroup[groupNum].length; i++) {
+            $('#bubble_room' + alarmGroup[groupNum][i]).css('display', 'block');
+        }
+    },
+    off: function (groupNum) {
+        for(var i = 0; i < alarmGroup[groupNum].length; i++) {
+            $('#bubble_room' + alarmGroup[groupNum][i]).css('display', 'none');
+        }
+    }
+};
 
 var extraSvg = d3.select('body')
     .append('svg')
@@ -222,7 +248,6 @@ function connectAudio(x, y, w, h) {
         audioOn = false;
     });
 
-
     $('#increaseButton').click(function() {
         if(music.volume <= 1 - volumeDeg) {
             music.volume += volumeDeg;
@@ -251,7 +276,7 @@ function connectAudio(x, y, w, h) {
     audioSource.connect(analyser);
     audioSource.connect(audioContext.destination);
 
-    var frequencyData = new Uint8Array(15);    // max: 1024
+    var frequencyData = new Uint8Array(20);    // max: 1024
 
     var vW = w;
     var vH = h;
@@ -285,12 +310,12 @@ function connectAudio(x, y, w, h) {
 
         analyser.getByteFrequencyData(frequencyData);
 
-        var amp = 0;
-        for(var i = 0; i < frequencyData.length; i++) {
-            amp += frequencyData[i];
-        }
-        var ampMin = 1500;
-        var ampMax = 3700;
+        //var amp = 0;
+        //for(var i = 0; i < frequencyData.length; i++) {
+        //    amp += frequencyData[i];
+        //}
+        //var ampMin = 1500;
+        //var ampMax = 3700;
 
         var volume = music.volume;
 
@@ -315,6 +340,14 @@ function connectAudio(x, y, w, h) {
 
             $('#room3_3 .audio .speaker .outerSpeaker circle').css('transform', 'scale(1)');
             $('#room3_3 .audio .speaker .innerSpeaker circle').css('transform', 'scale(1)');
+
+            controlBubble.off(0);
+            controlBubble.off(1);
+            controlBubble.off(2);
+            controlBubble.off(3);
+            openEar('a2');
+            openEar('a3');
+            openEar('a4');
         }
     }
 }
@@ -350,19 +383,6 @@ function checkNoise(volume) {
     }
 }
 
-var controlBubble = {
-    on: function(groupNum) {
-        for(var i = 0; i < alarmGroup[groupNum].length; i++) {
-            $('#bubble_room' + alarmGroup[groupNum][i]).css('display', 'block');
-        }
-    },
-    off: function (groupNum) {
-        for(var i = 0; i < alarmGroup[groupNum].length; i++) {
-            $('#bubble_room' + alarmGroup[groupNum][i]).css('display', 'none');
-        }
-    }
-};
-
 function makeAlarmGroup() {
     for(var i = 0; i < 4; i++) {
         for(var j = 0; j < alarmGroup[i].length; j++) {
@@ -396,7 +416,7 @@ function dance(bass, volume) {
     $('#room3_3 .human .rightLowerArm').attr('transform', "rotate(" + (0 + math_map(bass, 50, 255, 0, 180)) + ", " + getPivotPos('#room3_3', 'rightLowerArm', 'x1') + ", " + getPivotPos('#room3_3', 'rightLowerArm', 'y1') + ")");
 
     $('#room3_3 .audio .speaker .outerSpeaker circle').css('transform', 'scale(' + math_map(bass, 0, 255, 0.5, 0.5 + volume * 1.7) + ')');
-    $('#room3_3 .audio .speaker .innerSpeaker circle').css('transform', 'scale(' + math_map(bass, 0, 255, 0.5, 0.5 + volume * 1.7) + ')');
+    $('#room3_3 .audio .speaker .innerSpeaker circle').css('transform', 'scale(' + math_map(bass, 0, 255, 0.5, 0.5 + volume * 1.0) + ')');
 }
 
 
@@ -564,5 +584,3 @@ function getPivotPos(room, bodyParts, point) {
 function math_map(value, input_min, input_max, output_min, output_max) {
     return output_min + (output_max - output_min) * (value - input_min) / (input_max - input_min);
 }
-
-
