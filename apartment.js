@@ -13,8 +13,8 @@ $(window).keypress(function(e) {
 
 var music = $('#music')[0];
 
-var totalW = 1280;//$('body').width();
-var totalH = 728;//$('body').height();
+var totalW = $('body').width();
+var totalH = $('body').height();
 
 var gapW = totalW / 21;
 var gapH = totalH / 21;
@@ -472,7 +472,7 @@ function drawRoom(svg, room) {
     svg.rect(gRoom, x, y, w, h, {class: 'frame', fill: 'white', strokeWidth: 1});
     svg.line(gRoom, x + 8 * barGap, y, x + 8 * barGap, y + h * 0.75, {class: 'wall'});
 
-    drawClock(svg, gRoom, x, y);
+    drawClock(svg, room);
 
     drawBubble(room);
 }
@@ -493,17 +493,17 @@ function drawBars(svg, room) {
     }
 }
 
-function drawClock(svg, gRoom, roomX, roomY) {
+function drawClock(svg, room) {
     var h, m, s;
 
-    var x = roomX + bedRoomW / 2;
-    var y = roomY + roomH * 0.2;
+    var x = room.x + bedRoomW / 2;
+    var y = room.y + roomH * 0.2;
     var r = 12;
     var hourHand = r * 0.6;
     var minuteHand = r * 0.75;
     var secondHand = r * 0.8;
 
-    var gClock = svg.group(gRoom, {class: 'clock'});
+    var gClock = svg.group(room.gRoom, {class: 'clock'});
     svg.circle(gClock, x, y, r, {fill: 'white'});
     svg.line(gClock, x, y, x, y + hourHand, {class: 'hourHand'});
     svg.line(gClock, x, y, x, y + minuteHand, {class: 'minuteHand'});

@@ -2,12 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b07a12f4-d73b-4aeb-9e59-470d312d8c46" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/data/music.m4a" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/data/music2.mp3" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apartment.css" afterPath="$PROJECT_DIR$/apartment.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apartment.html" afterPath="$PROJECT_DIR$/apartment.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apartment.js" afterPath="$PROJECT_DIR$/apartment.js" />
     </list>
     <ignored path="p5Test.iws" />
@@ -29,34 +24,22 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="apartment.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="apartment.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/apartment.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.38516405">
+            <state vertical-scroll-proportion="0.0">
               <caret line="18" column="7" selection-start-line="18" selection-start-column="7" selection-end-line="18" selection-end-column="7" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="apartment.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="apartment.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/apartment.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-218.88889">
-              <caret line="394" column="17" selection-start-line="394" selection-start-column="9" selection-end-line="394" selection-end-column="17" />
+            <state vertical-scroll-proportion="10.637536">
+              <caret line="495" column="0" selection-start-line="495" selection-start-column="0" selection-end-line="495" selection-end-column="0" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="apartment.css" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/apartment.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-34.375">
-              <caret line="55" column="0" selection-start-line="55" selection-start-column="0" selection-end-line="55" selection-end-column="0" />
-              <folding>
-                <marker date="1452261969000" expanded="true" signature="969:2258" placeholder="..." />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -95,8 +78,8 @@
         <option value="$PROJECT_DIR$/building.js" />
         <option value="$PROJECT_DIR$/apt_backup.js" />
         <option value="$PROJECT_DIR$/apartment.html" />
-        <option value="$PROJECT_DIR$/apartment.js" />
         <option value="$PROJECT_DIR$/apartment.css" />
+        <option value="$PROJECT_DIR$/apartment.js" />
       </list>
     </option>
   </component>
@@ -134,6 +117,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
       <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
@@ -169,7 +153,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -334,6 +317,14 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/apartment.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/apartment.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -346,9 +337,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="59" column="25" selection-start-line="59" selection-start-column="25" selection-end-line="59" selection-end-column="25" />
-          <folding>
-            <marker date="1452261969000" expanded="true" signature="969:2258" placeholder="..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -372,9 +360,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="59" column="25" selection-start-line="59" selection-start-column="25" selection-end-line="59" selection-end-column="25" />
-          <folding>
-            <marker date="1452261969000" expanded="true" signature="969:2258" placeholder="..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -398,9 +383,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="59" column="25" selection-start-line="59" selection-start-column="25" selection-end-line="59" selection-end-column="25" />
-          <folding>
-            <marker date="1452261969000" expanded="true" signature="969:2258" placeholder="..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -416,9 +398,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="3" column="1" selection-start-line="3" selection-start-column="1" selection-end-line="3" selection-end-column="1" />
-          <folding>
-            <marker date="1452261969000" expanded="true" signature="969:2258" placeholder="..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -434,9 +413,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="3" column="1" selection-start-line="3" selection-start-column="1" selection-end-line="3" selection-end-column="1" />
-          <folding>
-            <marker date="1452261969000" expanded="true" signature="969:2258" placeholder="..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -485,28 +461,32 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/apartment.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="18" column="7" selection-start-line="18" selection-start-column="7" selection-end-line="18" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/apartment.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-34.375">
+        <state vertical-scroll-proportion="0.0">
           <caret line="55" column="0" selection-start-line="55" selection-start-column="0" selection-end-line="55" selection-end-column="0" />
-          <folding>
-            <marker date="1452261969000" expanded="true" signature="969:2258" placeholder="..." />
-          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/jquery.svg.min.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/apartment.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-218.88889">
-          <caret line="394" column="17" selection-start-line="394" selection-start-column="9" selection-end-line="394" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/apartment.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.38516405">
-          <caret line="18" column="7" selection-start-line="18" selection-start-column="7" selection-end-line="18" selection-end-column="7" />
+        <state vertical-scroll-proportion="10.637536">
+          <caret line="495" column="0" selection-start-line="495" selection-start-column="0" selection-end-line="495" selection-end-column="0" />
           <folding />
         </state>
       </provider>
